@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Announce Facebook Group Post</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .label-hint {
+      display: block;
+      color: var(--text-secondary);
+      font-weight: 400;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 110px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Announce Facebook Group Post</h1>
+      <p class="sub-header">(in Facebook Page)</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Input Card 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 1</span>
+          <button class="clear-btn" onclick="resetInput('inputGroupContent')">Reset</button>
+        </div>
+        <label for="inputGroupContent">
+          GROUP POST CONTENT
+          <span class="label-hint">[Insert content here]</span>
+        </label>
+        <textarea id="inputGroupContent" class="dynamic-input" placeholder="Insert content here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 2</span>
+          <button class="clear-btn" onclick="resetInput('inputGroupLink')">Reset</button>
+        </div>
+        <label for="inputGroupLink">
+          GROUP POST LINK
+          <span class="label-hint">[Paste Link]</span>
+        </label>
+        <textarea id="inputGroupLink" class="dynamic-input" placeholder="Paste Link..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Cards -->
+      <div id="promptsContainer">
+        <!-- Prompts injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        text: `নীচে দেওয়া কনটেন্টটি একটি Private Facebook Group-এ প্রকাশিত হয়েছে।
+
+আমি এই Group Post-এ প্রাসঙ্গিক ট্রাফিক পাঠানোর জন্য আপলোড করা ছবিটি আমার Facebook Page-এ প্রকাশ করতে চাই।
+
+আপনার কাজ হলো, Group Post-এর কনটেন্ট, পোস্টের লিংক এবং আপলোড করা ছবির বিষয়বস্তু বিবেচনা করে Facebook Page-এর ছবির সঙ্গে প্রকাশ করার উপযোগী একটি আকর্ষণীয় পোস্ট তৈরি করা।
+
+আমাকে নীচের তিনটি বিষয় লিখে দিন:
+
+১. Caption
+
+- স্বাভাবিক, আকর্ষণীয় ও কথোপকথনের ভঙ্গিতে লিখুন।
+- পাঠকের মধ্যে Group Post-এর বিষয়টি জানার আগ্রহ তৈরি করুন।
+- মূল Group Post-এর বিষয়বস্তুর সঙ্গে সামঞ্জস্য বজায় রাখুন।
+- সম্পূর্ণ Group Post-এর বিষয়বস্তু Facebook Page-এ প্রকাশ করবেন না। বরং মূল পোস্টটি দেখার কৌতূহল তৈরি করুন।
+- পাঠক যেন বুঝতে পারেন, মূল পোস্টটি পড়লে তাঁর বাস্তব উপকার হবে।
+
+২. Call to Action (CTA) with Link
+
+- পাঠককে Private Facebook Group-এর মূল পোস্টটি পড়ার জন্য উৎসাহিত করুন।
+- প্রদত্ত Group Post Link সরাসরি ব্যবহার করুন।
+- CTA সংক্ষিপ্ত, স্পষ্ট ও কার্যকর রাখুন।
+- CTA-তে সরাসরি Group Join করার অনুরোধ করবেন না।
+
+৩. Hashtags
+
+- পোস্টের বিষয়বস্তুর সঙ্গে সম্পর্কিত প্রাসঙ্গিক হ্যাশট্যাগ দিন।
+- অপ্রয়োজনীয় বা অতিরিক্ত হ্যাশট্যাগ ব্যবহার করবেন না।
+
+স্থায়ী Community Growth Policy:
+
+আমাদের লক্ষ্য মানুষকে সরাসরি Facebook Group-এ Join করতে বলা নয়। বরং এমন মূল্যবান, কার্যকর ও আকর্ষণীয় Content প্রকাশ করা, যার প্রতি আগ্রহ তৈরি হয়ে মানুষ নিজের প্রয়োজন ও আগ্রহে স্বতঃস্ফূর্তভাবে Group-এর সদস্য হতে চাইবেন।
+
+এই নীতি অনুসরণ করে:
+
+- কখনও সরাসরি Group Join করার অনুরোধ বা চাপ সৃষ্টি করবেন না।
+- "Join Our Group", "Join Now" বা এই ধরনের CTA ব্যবহার করবেন না।
+- Content-এর মূল্য, উপযোগিতা ও স্বতন্ত্রতা দিয়ে পাঠকের আগ্রহ তৈরি করুন।
+- পাঠককে মূল Group Post পড়ার জন্য উৎসাহিত করুন।
+- এমন কৌতূহল তৈরি করুন, যাতে পাঠক নিজে থেকেই Group-এর অন্যান্য Content সম্পর্কে জানতে আগ্রহী হন।
+- Community Growth-এর প্রধান ভিত্তি হবে Content Value, Trust এবং Genuine Interest; সরাসরি Membership Promotion নয়।
+
+গুরুত্বপূর্ণ নির্দেশনা:
+
+- আপলোড করা ছবির বিষয়বস্তু এবং Group Post-এর কনটেন্টের মধ্যে সামঞ্জস্য বজায় রাখুন।
+- এমন কোনও তথ্য, দাবি বা প্রতিশ্রুতি যোগ করবেন না যা মূল কনটেন্টে নেই।
+- পাঠককে সরাসরি Group Post-এ নিয়ে যাওয়াই এই Facebook Page পোস্টের প্রধান উদ্দেশ্য।
+- লেখাটি যেন স্বাভাবিক ও মানুষের লেখা বলে মনে হয়।
+- অপ্রয়োজনীয় ভূমিকা বা ব্যাখ্যা দেবেন না। সরাসরি ব্যবহারের উপযোগী Final Output দিন।
+
+INPUT
+
+GROUP POST CONTENT
+
+[Insert content here]
+
+GROUP POST LINK
+
+[Paste Link]`
+      },
+      {
+        id: 2,
+        text: `Please find the content below.
+
+Although this input field is intended for providing sales materials, please treat the content provided here as the primary reference for generating promotional content.
+
+The content is an Exclusive Facebook Group Post, not a product or service offer.
+
+Your task is to create promotional content that generates genuine interest in the original post and encourages people to visit and read it.
+
+Important instructions:
+
+- Do not treat this content as sales material or a product description.
+- Do not invent any product, service, offer, discount, or sales proposition.
+- Focus on highlighting the value, usefulness, and relevance of the original content.
+- Create curiosity that motivates people to explore the original post.
+- Do not directly ask or persuade people to join the Facebook Group. Let the value of the content motivate genuinely interested people to join voluntarily.
+
+CONTENT
+
+[Insert content here]`
+      },
+      {
+        id: 3,
+        text: `Exclusive Facebook Group Post`
+      },
+      {
+        id: 4,
+        text: `এক্সক্লুসিভ ফেসবুক গ্রুপ পোস্ট`
+      },
+      {
+        id: 5,
+        text: `You've asked me to provide the sales letter's text. However, I've uploaded the product itself as a PDF with this prompt. Can you work with the uploaded PDF instead?`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">Prompt #${t.id}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy Prompt #${t.id}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const contentVal = document.getElementById('inputGroupContent').value.trim() || "[Insert content here]";
+      const linkVal = document.getElementById('inputGroupLink').value.trim() || "[Paste Link]";
+
+      templates.forEach(t => {
+        let updatedText = t.text;
+        if (t.id === 1) {
+          updatedText = updatedText.replace(/\[Insert content here\]|\[Paste Link\]/g, match =>
+            match === '[Insert content here]' ? contentVal : linkVal
+          );
+        } else if (t.id === 2) {
+          updatedText = updatedText.split('[Insert content here]').join(contentVal);
+        }
+        document.getElementById(`p${t.id}`).textContent = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
