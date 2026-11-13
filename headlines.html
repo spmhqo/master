@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Headlines - (for community content)</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Headlines</h1>
+      <p class="sub-header">(for community content)</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1</span>
+        </div>
+        <div class="prompt-content" id="promptText">Answer the following prompt in Bengali (India).
+
+Rules:
+- Use only Bengali (India).
+- Always address the reader as "আপনি".
+- Never use "তুমি" or "তুই".
+- Use a natural Kolkata-style conversational tone.
+- Use natural, modern Bengali (India).
+- Avoid Bangladeshi vocabulary, spelling, and expressions.
+
+PROMPT
+
+# IMMEDIATE EXECUTION MODE™
+
+Do not explain the system.
+
+Do not provide recommendations.
+
+Do not discuss headline theory.
+
+Do not teach copywriting.
+
+Your job is to generate powerful authority-building headlines for the user's niche.
+
+Ask one question at a time.
+
+Wait for the user's response before continuing.
+
+---
+
+# QUESTION 1
+
+What niche would you like to generate authority headlines for?
+
+Examples:
+
+* Dentist
+* Chiropractor
+* Financial Advisor
+* Realtor
+* Personal Trainer
+* Lawyer
+* Plumber
+* Affiliate Marketing
+* Email Marketing
+* YouTube
+
+Or enter your own niche.
+
+---
+
+# AFTER USER RESPONDS
+
+Generate:
+
+## Audience Intelligence Snapshot™
+
+Identify:
+
+### Biggest Problems™
+
+### Biggest Questions™
+
+### Biggest Fears™
+
+### Biggest Goals™
+
+Use this information to generate stronger headlines.
+
+---
+
+# HEADLINE GENERATION RULE™
+
+Every headline must:
+
+✅ Create curiosity
+
+✅ Create relevance
+
+✅ Create authority
+
+✅ Feel realistic
+
+✅ Feel niche-specific
+
+✅ Sound like something a real prospect would click
+
+---
+
+Avoid:
+
+❌ Generic headlines
+
+❌ Clickbait
+
+❌ Sensationalism
+
+❌ Empty hype
+
+❌ AI-sounding language
+
+---
+
+# CATEGORY 1
+
+## Myth Headlines™
+
+Generate 25 headlines.
+
+Examples:
+
+* 5 Retirement Myths That Could Cost You Thousands
+* 7 Dental Myths Most Patients Still Believe
+
+---
+
+# CATEGORY 2
+
+## Mistake Headlines™
+
+Generate 25 headlines.
+
+Examples:
+
+* 6 Costly Retirement Mistakes To Avoid
+* 5 Mistakes Home Buyers Make Before Closing
+
+---
+
+# CATEGORY 3
+
+## Warning Sign Headlines™
+
+Generate 25 headlines.
+
+Examples:
+
+* 7 Warning Signs Your Financial Plan Needs Attention
+* 5 Early Signs Of Gum Disease Most People Ignore
+
+---
+
+# CATEGORY 4
+
+## Checklist Headlines™
+
+Generate 25 headlines.
+
+Examples:
+
+* The Complete Retirement Readiness Checklist
+* The Healthy Smile Checklist Every Family Should Follow
+
+---
+
+# CATEGORY 5
+
+## Comparison Headlines™
+
+Generate 25 headlines.
+
+Examples:
+
+* Traditional IRA vs Roth IRA: What You Need To Know
+* Electric Toothbrush vs Manual Toothbrush: Which Is Better?
+
+---
+
+# CATEGORY 6
+
+## Assessment Headlines™
+
+Generate 25 headlines.
+
+Examples:
+
+* Could Your Retirement Plan Have Hidden Risks?
+* Is Your Financial Future More Vulnerable Than You Think?
+
+---
+
+# QUALITY CONTROL RULE™
+
+Every headline must:
+
+* Be specific
+* Be believable
+* Be educational
+* Be authority-building
+* Be usable on:
+
+  * Infographics
+  * Social posts
+  * Lead magnets
+  * Blog posts
+  * Email campaigns
+  * Landing pages
+
+---
+
+# FINAL DELIVERABLE
+
+## Top 10 Recommended Headlines™
+
+After generating all categories:
+
+Select the 10 strongest headlines.
+
+Rank them from:
+
+### Most Attention-Grabbing™
+
+to
+
+### Most Educational™
+
+Explain briefly why each headline is likely to perform well.
+
+---
+
+# FINAL RULE™
+
+The goal is not to create clever headlines.
+
+The goal is to create headlines that help authority assets get noticed, consumed, shared, and acted upon.
+
+Every headline should feel like it belongs inside a professional authority-building campaign.</div>
+        <button class="btn copy-btn" onclick="copyText('promptText', this)">
+          <span>Copy Prompt</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+    }
+  </script>
+</body>
+</html>

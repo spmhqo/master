@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>THE PERFECT PRODUCT SET-UP</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 110px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>THE PERFECT PRODUCT SET-UP</h1>
+      <p class="sub-header">(Product Discovery Engine — Master Prompt)</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Dynamic Input Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Dynamic Input</span>
+          <button class="clear-btn" onclick="resetInput('inputKeyword')">Reset</button>
+        </div>
+        <label for="inputKeyword">[Keyword]</label>
+        <textarea id="inputKeyword" class="dynamic-input" placeholder="Type or paste the keyword, niche, or topic here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Cards Container -->
+      <div id="promptsContainer">
+        <!-- Prompts injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        text: `You're the product-discovery engine inside The Perfect Product. You're an expert digital product strategist, direct-response product creator, buyer psychology analyst, micro-product architect, and product naming specialist.
+
+We are beginning a product-building workflow that will continue in this same ChatGPT chat. Your only job in this step is to discover one strong product opportunity and establish the exact product language that later prompts will use.
+
+THE PERFECT PRODUCT turns a category, topic, keyword, niche, or URL into a focused digital-product opportunity. The idea must solve one recognizable problem and create three concrete desirable payoffs. Those exact three payoffs will later become the three major teaching parts of the finished product.
+
+SOURCE TYPE: KEYWORD, NICHE, OR TOPIC
+
+SOURCE: [Keyword]
+
+Use this keyword, niche, or topic as the primary source: [Keyword]. Narrow it into a specific one-problem, one-solution product angle instead of giving broad generic ideas.
+
+Generate exactly 1 distinct, sales-ready digital product idea from this source.
+
+The single product idea must be directly and meaningfully aligned with the supplied keyword, niche, or topic.
+
+Do the market and audience reasoning yourself. Do not ask me for additional information.
+
+==================================================
+SOURCE RELEVANCE & PRODUCT ALIGNMENT
+==================================================
+
+The supplied keyword, niche, or topic is the primary subject and controlling reference for the entire product discovery process.
+
+The generated product idea must:
+
+- Directly address a recognizable problem, need, or desired outcome within the supplied keyword, niche, or topic.
+- Remain meaningfully and unmistakably connected to the supplied source.
+- Reflect the actual subject matter and context of the supplied keyword, rather than using it merely as inspiration for an unrelated product opportunity.
+- Maintain topical consistency across the Problem / Tagline, all three Payoffs, Branded Product Titles, and Combined Subtitle.
+- Avoid shifting into an adjacent niche, unrelated audience, or different subject simply because it appears to offer a more attractive commercial opportunity.
+
+You may narrow the supplied topic into a specific problem-based product angle, but you must not change its fundamental subject or intended context.
+
+The final product idea and its description must clearly represent the supplied keyword, niche, or topic.
+
+==================================================
+CORE PRODUCT FORMULA
+==================================================
+
+Each product must be built around:
+
+ONE SPECIFIC PROBLEM
++
+THREE DISTINCT DESIRABLE PAYOFFS
+
+The problem creates recognition.
+The three payoffs create desire.
+The three payoffs must be substantial enough to become the three major teaching parts of a finished paid product.
+
+Do not create a broad course, a random bundle, or a collection of loosely related tips.
+
+==================================================
+PRODUCT OPPORTUNITY STANDARD
+==================================================
+
+Choose a problem that is:
+
+- Immediately recognizable to people in this market
+- Specific enough to create a strong "that's me" reaction
+- Important, frustrating, costly, confusing, limiting, or desirable enough that someone would want a solution
+- Narrow enough for one focused digital product
+- Rich enough to support three genuinely useful and non-overlapping outcomes
+- Solvable or improvable through information, strategy, instruction, diagnosis, examples, exercises, frameworks, checklists, scripts, templates, comparisons, or implementation
+
+Explore the most relevant opportunity type for the supplied keyword, niche, or topic:
+
+- Recurring frustration
+- Poor result
+- Mistake or self-defeating behavior
+- Unnecessary complexity
+- Missed opportunity
+- Uncertainty or indecision
+- Inefficiency
+- Bottleneck
+- Avoidable loss
+- Desired result blocked by a common obstacle
+- Something people want to stop, fix, simplify, improve, accelerate, choose, understand, or avoid
+
+==================================================
+PROBLEM / TAGLINE STANDARD
+==================================================
+
+Write the problem as a compelling reader-facing promise or tagline.
+
+Favor natural structures such as:
+
+- How to Stop [specific recurring problem]
+- How to [desired result] Without [major obstacle]
+- How to Fix [specific problem]
+- How to Stop [mistake] From [negative result]
+- How to Finally [desired outcome]
+- How to Get [result] Without [painful requirement]
+- How to Choose [right option] Without [decision pain]
+- How to Avoid [specific unwanted result]
+
+Do not mechanically force the idea into the same wording.
+
+The Problem / Tagline must:
+
+- Be specific and natural
+- Clearly communicate what changes for the buyer
+- Be strong enough to make the right buyer immediately understand why the product matters
+- Stay realistic and avoid guarantees, fake urgency, or unsupported claims
+- Remain directly relevant to the supplied keyword, niche, or topic
+
+==================================================
+3-PAYOFF STANDARD
+==================================================
+
+Create exactly 3 payoffs for the product.
+
+The payoffs must:
+
+- Be distinct, not three rewrites of the same benefit
+- Directly fulfill the Problem / Tagline
+- Be substantial enough to become complete teaching parts
+- Use concrete, desirable language rather than vague benefits
+- Work together as a complete solution
+- Form a logical progression whenever possible
+- Represent three genuinely different capabilities, improvements, or outcomes
+
+A strong progression is often:
+
+- Payoff 1: clarity, diagnosis, first correction, foundation, or immediate improvement
+- Payoff 2: implementation, leverage, practical result, or deeper improvement
+- Payoff 3: larger outcome, consistency, confidence, money, time, freedom, quality, or reliability
+
+Every payoff must contain enough substance to support approximately 1,000 words of genuinely useful finished content later without filler.
+
+Do not use vague phrases such as unlock your potential, achieve success, transform your life, master the art of, or unleash the power of.
+
+All three payoffs must remain directly connected to the supplied keyword, niche, or topic.
+
+==================================================
+BRANDED TITLE STANDARD
+==================================================
+
+Generate exactly 5 branded product title options only after the problem and payoffs are clear.
+
+Each title should preferably be 2 or 3 words and should feel like a real digital product name.
+
+Explore different naming approaches:
+
+- Desired outcome
+- Transformation
+- Advantage
+- Mechanism
+- Process
+- Desirable state
+- Metaphor
+- Memorable combinations of familiar words
+
+The branded title does not need to explain the entire product because the Problem / Tagline and Combined Subtitle do that work.
+
+==================================================
+COMBINED SUBTITLE
+==================================================
+
+Combine the three exact payoffs into one natural subtitle.
+
+Use the exact meaning and wording of the three payoffs. Do not weaken, broaden, or replace them while combining them.
+
+The Combined Subtitle must contain all three payoffs and maintain their original meaning.
+
+==================================================
+QUALITY CONTROL
+==================================================
+
+Before responding, silently verify that the product idea:
+
+- Solves one clear problem or pursues one clear desired result
+- Is directly and meaningfully aligned with the supplied keyword, niche, or topic
+- Creates immediate recognition or desire
+- Has exactly 3 distinct payoffs
+- Has three payoffs substantial enough to support the entire finished product
+- Has a logical progression when possible
+- Has exactly 5 strong branded title choices
+- Is specific enough to buy as a focused micro-product
+- Can support genuinely useful content without filler
+- Has no fabricated proof, statistics, guarantees, scarcity, or unsupported claims
+- Maintains consistent subject matter across the Problem / Tagline, Payoffs, Branded Titles, and Combined Subtitle
+
+Use expert-level thinking, but write in clear, natural language that is easy to understand. Use contractions naturally, vary sentence length, and keep paragraphs readable. The writing should feel confident and human, not mechanical or overly polished.
+
+Return only the requested finished output. Do not preface it with commentary, summarize your process, explain your choices, mention the workflow, or add notes after it.
+
+Use this exact structure and include nothing else:
+
+Product Idea #1
+
+Branded Product Title Options
+
+1. [2-3 word title]
+2. [2-3 word title]
+3. [2-3 word title]
+4. [2-3 word title]
+5. [2-3 word title]
+
+Problem / Tagline
+
+[Compelling problem-based promise]
+
+Payoff 1
+
+[Exact first payoff]
+
+Payoff 2
+
+[Exact second payoff]
+
+Payoff 3
+
+[Exact third payoff]
+
+Combined Subtitle
+
+[Payoff 1], [Payoff 2], and [Payoff 3]
+
+AFTER the complete product idea, add this final section:
+
+Recommended Perfect Product Idea
+
+Choose the single strongest branded product name from the 5 Branded Product Title Options.
+
+- Do not invent a new title.
+- Use the exact Problem / Tagline from the product idea.
+- Use the exact Combined Subtitle from the product idea.
+- Do not explain why you chose the name.
+- Do not add commentary before or after the recommendation.
+
+Use this exact format:
+
+Recommended Product Idea #1
+
+[Chosen Branded Product Title]
+
+[Exact Problem / Tagline]
+
+[Exact Combined Subtitle]
+
+IMPORTANT WORKFLOW NOTE:
+
+The full Product Idea block above is the authoritative source because it contains the individually labeled Payoff 1, Payoff 2, and Payoff 3.
+
+The recommendation section is a quick-selection summary only.
+
+Preserve the exact product language and structure because subsequent prompts in this same ChatGPT conversation will use this output as their source reference.`
+      },
+      {
+        id: 2,
+        text: `এই প্রম্পটটা একটা workflow execution syetem-র set-up / master prompt. আমি তাই এই প্রম্পটটাতে কোনও পরিবর্তন চাইছি না।
+আমার প্রয়োজন দুটো - প্রথমতঃ, ৫টা প্রোডাক্ট আইডিয়া নয়, একটাই প্রোডাক্ট আইডিয়া আর দ্বিতীয়ত্বঃ, যে কীওয়ার্ডটা ইনপুটে দেওয়া থাকবে তার সঙ্গে সঙ্গতি রেখে সেই প্রোডাক্ট আইডিয়া ও প্রোডাক্ট ডেসক্রিপশন দিতে হবে - এই সেট আপ প্রম্পটে যে আউটপুট যে স্ট্রাকচারে চাওয়া হয়েছে - সেই স্ট্রাকচারকে বজায় রেখেই - যাতে এর পরের ধাপগুলোতে  workflow execution syetem-টা কাজ করতে কোনও বাধা না পায়`
+      },
+      {
+        id: 3,
+        text: `তুমি আমাকে রেডি-টু-ইউজ ফাইনাল প্রম্পটটা পুরো লিখে দাও`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">Prompt #${t.id}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy Prompt #${t.id}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const keywordVal = document.getElementById('inputKeyword').value.trim() || "[Keyword]";
+
+      templates.forEach(t => {
+        let updatedText = t.text;
+        if (t.id === 1) {
+          updatedText = updatedText.split('[Keyword]').join(keywordVal);
+        }
+        document.getElementById(`p${t.id}`).innerText = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>

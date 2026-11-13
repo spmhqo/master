@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Problem Statement Genie</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --accent-warning: #f59e0b;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .note-card {
+      border-color: rgba(34, 211, 238, 0.25);
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .note-label {
+      background: var(--accent-warning);
+      color: #020617;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 90px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .note-content {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+      background: var(--code-bg);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .prompt-content::-webkit-scrollbar,
+    .note-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track,
+    .note-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb,
+    .note-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.9rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content, .note-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Problem Statement Genie</h1>
+      <p class="sub-header">Structured Problem Statement & Cause Investigation Framework</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Note Box -->
+      <div class="step-card note-card">
+        <div class="step-header">
+          <span class="step-label note-label">Guide / নির্দেশিকা</span>
+        </div>
+        <div class="note-content">ব্যবহারের পরামর্শ: 
+Problem: What specific problem does the person experience?
+Activity: Within which activity does the problem occur?
+Persona: Who experiences the problem?
+Purpose: What is the person trying to accomplish through the activity?
+
+Four components and their descriptions
+Component	What to define
+Problem		Name and description of the specific problem.
+Activity	Name and description of the activity in which the problem occurs.
+Persona		Name and description of the targeted audience experiencing the problem.
+Purpose		Name and description of the intended outcome of the activity.
+
+Example
+Component	Example
+Problem		Difficulty identifying important concepts in lengthy textbook chapters.
+Activity	Studying textbook chapters.
+Persona		Class 10 students.
+Purpose		Understanding and preparing a chapter for examinations.
+
+Resulting keyword:
+
+Difficulty identifying important concepts in lengthy textbook chapters while studying for examinations among Class 10 students.</div>
+      </div>
+
+      <!-- Multiline Input Card 1: Problem -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 1</span>
+          <button class="clear-btn" onclick="resetInput('inputProblem')">Reset</button>
+        </div>
+        <label for="inputProblem">[problem]</label>
+        <textarea id="inputProblem" class="dynamic-input" placeholder="Enter or paste the [problem] here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 2: Persona -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 2</span>
+          <button class="clear-btn" onclick="resetInput('inputPersona')">Reset</button>
+        </div>
+        <label for="inputPersona">[persona]</label>
+        <textarea id="inputPersona" class="dynamic-input" placeholder="Enter or paste the [persona] here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 3: Activity -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 3</span>
+          <button class="clear-btn" onclick="resetInput('inputActivity')">Reset</button>
+        </div>
+        <label for="inputActivity">[an activity]</label>
+        <textarea id="inputActivity" class="dynamic-input" placeholder="Enter or paste [an activity] here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Multiline Input Card 4: Purpose -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data 4</span>
+          <button class="clear-btn" onclick="resetInput('inputPurpose')">Reset</button>
+        </div>
+        <label for="inputPurpose">[a particular purpose]</label>
+        <textarea id="inputPurpose" class="dynamic-input" placeholder="Enter or paste [a particular purpose] here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompts Injected by JavaScript -->
+      <div id="promptsContainer" class="prompt-workflow"></div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        text: `A single, specific [problem] experienced by a [persona] while performing [an activity] to achieve [a particular purpose].`
+      },
+      {
+        id: 2,
+        text: `CONTEXT:
+
+A single, specific [problem] experienced by a [persona] while performing [an activity] to achieve [a particular purpose].
+
+TASK:
+
+Investigate the two possible sources of the identified problem.
+
+Provide two separate bullet lists:
+
+1. Internal / Doer-related causes:
+   Ways in which the problem may arise from the doer's inability to perform something necessary to carry out the activity or achieve its intended purpose.
+
+2. External / Circumstantial causes:
+   Ways in which the problem may arise from constraints imposed by external circumstances, irrespective of the doer's ability.
+
+INSTRUCTIONS:
+
+- Identify specific, relevant and distinct causes.
+- Do not assume that both types of causes necessarily exist.
+- A problem may arise from either one or both types of causes.
+- Do not invent causes merely to fill either list.
+- Avoid repeating the same underlying cause using different wording.`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">Prompt #${t.id}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy Prompt #${t.id}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const problemVal = document.getElementById('inputProblem').value.trim() || "[problem]";
+      const personaVal = document.getElementById('inputPersona').value.trim() || "[persona]";
+      const activityVal = document.getElementById('inputActivity').value.trim() || "[an activity]";
+      const purposeVal = document.getElementById('inputPurpose').value.trim() || "[a particular purpose]";
+
+      templates.forEach(t => {
+        let updatedText = t.text
+          .split('[problem]').join(problemVal)
+          .split('[persona]').join(personaVal)
+          .split('[an activity]').join(activityVal)
+          .split('[a particular purpose]').join(purposeVal);
+          
+        document.getElementById(`p${t.id}`).innerText = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
