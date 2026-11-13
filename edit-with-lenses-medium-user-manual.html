@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit with Lenses — Medium Edition | User Manual</title>
+<style>
+:root{
+  --bg:#07111f;--panel:#101d30;--panel2:#14243a;--line:rgba(255,255,255,.11);
+  --text:#edf4ff;--muted:#a9b8cc;--accent:#67e8f9;--green:#6ee7b7;
+  --amber:#fbbf24;--shadow:0 18px 45px rgba(0,0,0,.24)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(145deg,#050b16,#0b1930 60%,#101827);color:var(--text);
+font:16px/1.72 Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{width:min(980px,calc(100% - 32px));margin:auto}
+header{padding:64px 0 42px;text-align:center}
+.eyebrow{color:var(--accent);font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.12;margin:14px 0}
+.subtitle{color:var(--muted);max-width:700px;margin:0 auto;font-size:1.08rem}
+.tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.tag{border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--muted);font-size:.8rem}
+main{padding-bottom:70px}
+section,.hero-note{background:rgba(16,29,48,.88);border:1px solid var(--line);border-radius:20px;padding:clamp(20px,4vw,34px);margin:20px 0;box-shadow:var(--shadow)}
+h2{font-size:1.45rem;margin:0 0 14px;line-height:1.3}
+h3{font-size:1.08rem;margin:24px 0 8px;color:#d8e9ff}
+p{margin:10px 0}
+.muted{color:var(--muted)}
+strong{color:#fff}
+ol,ul{padding-left:1.35rem}
+li{padding:3px 0}
+.callout{border-left:3px solid var(--accent);padding:12px 16px;background:rgba(103,232,249,.07);border-radius:0 10px 10px 0;margin:16px 0}
+.warning{border-left-color:var(--amber);background:rgba(251,191,36,.07)}
+.success{border-left-color:var(--green);background:rgba(110,231,183,.07)}
+.stage{display:flex;gap:14px;align-items:flex-start;margin:18px 0;padding:16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}
+.num{flex:0 0 34px;height:34px;border-radius:10px;background:rgba(103,232,249,.14);color:var(--accent);display:grid;place-items:center;font-weight:800}
+.stage h3{margin:0 0 4px}
+.pill{display:inline-block;border-radius:999px;padding:2px 9px;font-size:.72rem;font-weight:800;letter-spacing:.04em}
+.mandatory{background:rgba(110,231,183,.13);color:var(--green)}
+.conditional{background:rgba(251,191,36,.13);color:var(--amber)}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.94rem}
+th,td{text-align:left;vertical-align:top;padding:11px 12px;border-bottom:1px solid var(--line)}
+th{color:var(--accent);font-weight:700;background:rgba(255,255,255,.025)}
+code{color:#b8f4ff;background:rgba(103,232,249,.09);padding:2px 5px;border-radius:5px}
+footer{text-align:center;color:var(--muted);padding:20px 0 45px;font-size:.85rem}
+a{color:var(--accent)}
+@media(max-width:620px){header{padding:44px 0 28px}section,.hero-note{border-radius:15px}table{display:block;overflow-x:auto;white-space:normal}}
+@media print{body{background:#fff;color:#172033}.wrap{width:100%}section,.hero-note{background:#fff;box-shadow:none;border:1px solid #ccd4df;break-inside:avoid}
+.muted,footer{color:#526174}h3,strong{color:#172033}.tag{color:#526174;border-color:#ccd4df}.callout{background:#f2f8fc}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">EDIT WITH LENSES · MEDIUM EDITION</div>
+  <h1>User Manual</h1>
+  <p class="subtitle">A practical guide to reviewing, planning, editing and refining your Medium articles while preserving the identity of your original draft.</p>
+  <div class="tags"><span class="tag">Controlled Improvement</span><span class="tag">4-stage workflow</span><span class="tag">English prompts</span><span class="tag">Bengali guide</span></div>
+</header>
+<main>
+<div class="hero-note">
+  <h2>মূল উদ্দেশ্য</h2>
+  <p>এই Prompt Genie-এর উদ্দেশ্য আপনার Medium Article-কে নতুন করে লিখে দেওয়া নয়। বরং আপনার নিজের Article-এর বিষয়বস্তু, বক্তব্য, লেখার ধরন ও কাঠামো বজায় রেখে সেটিকে আরও উন্নত করা।</p>
+  <div class="callout success"><strong>Guiding principle:</strong> Preserve the Author. Improve the Article.</div>
+</div>
+
+<section>
+<h2>1. What You Need Before Starting</h2>
+<p>আপনার কাছে একটি সম্পূর্ণ Medium Article Draft থাকতে হবে। Draft-এ সম্ভব হলে নীচের সব অংশ রাখুন:</p>
+<ul>
+<li>Original Title</li><li>Subtitle (if available)</li><li>Opening / Introduction</li>
+<li>Main Article Body</li><li>Headings and Subheadings</li><li>Lists, Quotes and other formatting</li><li>Ending / Conclusion</li>
+</ul>
+<div class="callout warning"><strong>Important:</strong> Original Draft-এর একটি অপরিবর্তিত কপি আলাদা করে রাখুন। প্রতিটি Stage-এ একই Version ব্যবহার করবেন। মাঝপথে Original Draft বদলালে আগের Review ও Checklist-এর সঙ্গে অসামঞ্জস্য তৈরি হতে পারে।</div>
+</section>
+
+<section>
+<h2>2. Understand the Workflow</h2>
+<div class="stage"><div class="num">1</div><div><h3>P1 — Multi-Lens Editorial Review <span class="pill mandatory">MANDATORY</span></h3><p class="muted">Article-এর দুর্বলতা তিনটি আলাদা পাঠক-দৃষ্টিভঙ্গি থেকে শনাক্ত করা। এই ধাপে কোনও Editing হবে না।</p></div></div>
+<div class="stage"><div class="num">2</div><div><h3>P2 — Consolidated Editing Plan <span class="pill mandatory">MANDATORY</span></h3><p class="muted">কী পরিবর্তন করতে হবে এবং কী অপরিবর্তিত রাখতে হবে, তার অনুমোদনযোগ্য পরিকল্পনা তৈরি করা।</p></div></div>
+<div class="stage"><div class="num">3</div><div><h3>P3 — Controlled Content Editing <span class="pill mandatory">MANDATORY</span></h3><p class="muted">Original Draft-এ সরাসরি অনুমোদিত পরিবর্তন বাস্তবায়ন এবং Thesis Alignment পরীক্ষা করা।</p></div></div>
+<div class="stage"><div class="num">4</div><div><h3>P4 — Conditional Thesis Alignment Optimization <span class="pill conditional">CONDITIONAL</span></h3><p class="muted">P3-এর Diagnostic Decision অনুযায়ী প্রয়োজন হলেই Title, Subtitle, Opening বা Ending উন্নত করা।</p></div></div>
+</section>
+
+<section>
+<h2>3. Step 1 — Multi-Lens Editorial Review (P1)</h2>
+<p><strong>Purpose:</strong> Identify genuine weaknesses in your Medium Article.</p>
+<ol>
+<li>Edit with Lenses — Medium Edition HTML ফাইলটি Browser-এ খুলুন।</li>
+<li><strong>Prompt #1</strong> Copy বাটনে ক্লিক করুন।</li>
+<li>ChatGPT-তে একটি Conversation খুলে Prompt Paste করুন।</li>
+<li>Prompt-এর নির্দেশিত জায়গায় আপনার সম্পূর্ণ Original Article Paste করুন।</li>
+<li>Prompt Submit করুন।</li>
+</ol>
+<h3>ChatGPT কী পরীক্ষা করবে?</h3>
+<ul>
+<li><strong>Seasoned Editor Lens:</strong> Generic language, repetition, weak sentences and unnecessary wording.</li>
+<li><strong>First-Time Medium Reader Lens:</strong> Confusion, reading friction, unclear explanations and loss of interest.</li>
+<li><strong>Knowledgeable Reader Lens:</strong> Overly basic material, repetition and low information value.</li>
+</ul>
+<div class="callout"><strong>Expected Output:</strong> Three-Lens Review, consolidated observations, Preserve-As-Is recommendations and Medium-specific review findings.</div>
+<p><strong>Your task:</strong> P1-এর সম্পূর্ণ Output সংরক্ষণ করুন। এই পর্যায়ে AI-কে Article Rewrite করতে দেবেন না।</p>
+</section>
+
+<section>
+<h2>4. Step 2 — Consolidated Editing &amp; Preservation Plan (P2)</h2>
+<p><strong>Purpose:</strong> Convert review observations into a controlled editing plan.</p>
+<ol>
+<li><strong>Prompt #2</strong> Copy করে একই ChatGPT Conversation-এ Paste করুন।</li>
+<li>P1-এর সম্পূর্ণ Output নির্দিষ্ট জায়গায় দিন।</li>
+<li>প্রথম ধাপে ব্যবহৃত একই Original Draft দিন।</li>
+<li>Prompt Submit করুন।</li>
+</ol>
+<h3>দুটি প্রধান Output</h3>
+<p><strong>A. Consolidated Editing Checklist</strong></p>
+<p>কোন জায়গায় কী সমস্যা, কী পরিবর্তন প্রয়োজন, কেন প্রয়োজন এবং প্রত্যাশিত উন্নতি কী—তা নির্দিষ্ট করবে। Recommendations চার ভাগে সাজানো হবে:</p>
+<ul><li>Essential Corrections</li><li>Recommended Improvements</li><li>Optional Refinements</li><li>No Change Required</li></ul>
+<p><strong>B. Content Preservation Checklist</strong></p>
+<p>Original Thesis, Core Argument, Facts, Examples, Structure, Section Sequence, Headings, Format, Author's Voice এবং Intended Message সংরক্ষণের নির্দেশনা দেবে।</p>
+<div class="callout warning"><strong>Approval Gate — Do not skip:</strong> P2-এর Checklist নিজে Review করুন। অপ্রয়োজনীয় Recommendation বাদ দিন এবং প্রয়োজনীয় পরিবর্তন অনুমোদন করুন। Optional Refinements স্বয়ংক্রিয়ভাবে অনুমোদিত নয়।</div>
+<p><strong>Expected Output:</strong> P3-তে ব্যবহারের জন্য একটি সম্পূর্ণ, অনুমোদিত Editing Plan।</p>
+</section>
+
+<section>
+<h2>5. Step 3 — Controlled Content Editing (P3)</h2>
+<p><strong>Purpose:</strong> Improve the Original Article without turning it into a different article.</p>
+<ol>
+<li><strong>Prompt #3</strong> Copy করে একই Conversation-এ Paste করুন।</li>
+<li>Exact Original Draft দিন।</li>
+<li>আপনার অনুমোদিত সম্পূর্ণ P2 Output দিন।</li>
+<li>Prompt Submit করুন।</li>
+</ol>
+<h3>AI কী করতে পারবে?</h3>
+<ul>
+<li>Weak sentences, clarity and readability উন্নত করতে পারবে।</li>
+<li>Unnecessary repetition ও awkward expressions সংশোধন করতে পারবে।</li>
+<li>প্রয়োজনে বাক্য পুনর্গঠন এবং অনুমোদিত সীমার মধ্যে স্থানান্তর করতে পারবে।</li>
+<li>বিদ্যমান বক্তব্যের ভিত্তিতে প্রয়োজনীয় transitions উন্নত করতে পারবে।</li>
+</ul>
+<h3>AI কী করতে পারবে না?</h3>
+<ul>
+<li>সম্পূর্ণ Article নতুন করে লিখতে পারবে না।</li>
+<li>Original Thesis, Argument বা Intended Message পরিবর্তন করতে পারবে না।</li>
+<li>নিজে থেকে নতুন Facts, Examples, Statistics বা References যোগ করতে পারবে না।</li>
+<li>অনুমোদন ছাড়া গুরুত্বপূর্ণ Information বাদ দিতে বা Article-এর Structure বদলাতে পারবে না।</li>
+</ul>
+<h3>Expected Output</h3>
+<ul><li>Final Controlled Edited Article</li><li>Editing Summary</li><li>Fidelity Report</li><li>Post-Edit Thesis-Alignment Diagnostic</li></ul>
+<div class="callout success"><strong>Important:</strong> P3-এর শেষে AI একটি Diagnostic Decision দেবে—P4 REQUIRED অথবা P4 NOT REQUIRED।</div>
+</section>
+
+<section>
+<h2>6. Step 4 — Conditional Thesis Alignment Optimization (P4)</h2>
+<p><strong>Purpose:</strong> Correct specific thesis-alignment problems without rewriting the article.</p>
+<p>P4 সব Article-এর জন্য প্রয়োজন নেই। শুধুমাত্র P3 যদি <code>P4 Decision: REQUIRED</code> দেয়, তাহলেই এটি চালাবেন।</p>
+<h3>যেভাবে চালাবেন</h3>
+<ol>
+<li><strong>Prompt #4</strong> Copy করুন।</li>
+<li>P3-এর সম্পূর্ণ Diagnostic Output নির্দিষ্ট জায়গায় দিন।</li>
+<li>P3-এর সম্পূর্ণ Final Edited Article দিন।</li>
+<li>Prompt Submit করুন।</li>
+</ol>
+<h3>কোন অংশ উন্নত হতে পারে?</h3>
+<ul><li>Title</li><li>Subtitle</li><li>Opening</li><li>Ending</li></ul>
+<p>কোন অংশ পরিবর্তন করা প্রয়োজন, তা P3-এর Diagnostic এবং P4-এর নির্দেশ অনুযায়ী নির্ধারিত হবে। Article-এর Body এবং অন্য অননুমোদিত অংশ অপরিবর্তিত রাখতে হবে।</p>
+<div class="callout warning"><strong>If P4 Decision is NOT REQUIRED:</strong> P4 চালাবেন না। P3-এর Final Edited Article-ই আপনার Final Version।</div>
+<p><strong>Expected Output:</strong> Final Medium Article, Optimization Summary এবং Fidelity Report।</p>
+</section>
+
+<section>
+<h2>7. Quick Workflow Reference</h2>
+<table>
+<thead><tr><th>Stage</th><th>Prompt</th><th>আপনার করণীয়</th></tr></thead>
+<tbody>
+<tr><td>P1</td><td>Multi-Lens Review</td><td>Original Article Review করান</td></tr>
+<tr><td>P2</td><td>Editing Plan</td><td>Checklist Review ও Approve করুন</td></tr>
+<tr><td>P3</td><td>Controlled Editing</td><td>Edit ও Thesis Diagnosis করান</td></tr>
+<tr><td>P4</td><td>Conditional Optimization</td><td>শুধু REQUIRED হলে চালান</td></tr>
+</tbody>
+</table>
+</section>
+
+<section>
+<h2>8. Important Usage Rules</h2>
+<ol>
+<li>চারটি Prompt একই ChatGPT Conversation-এ ধারাবাহিকভাবে ব্যবহার করুন।</li>
+<li>প্রতিটি Stage-এর সম্পূর্ণ Output পরবর্তী Stage-এ দিন।</li>
+<li>প্রতিটি Stage-এ একই Original Draft Version ব্যবহার করুন।</li>
+<li>P2-এর Editing Checklist নিজে Review করে অনুমোদন করুন।</li>
+<li>P4 Decision NOT REQUIRED হলে P4 চালাবেন না।</li>
+<li>Optional Refinements স্বয়ংক্রিয়ভাবে অনুমোদিত নয়।</li>
+<li>AI-কে নতুন তথ্য, উদাহরণ বা Reference তৈরি করতে দেবেন না।</li>
+<li>Final Article-এর সঙ্গে Original Draft মিলিয়ে দেখুন।</li>
+<li>Fidelity Report-কে সহায়ক যাচাই হিসেবে ব্যবহার করুন, শতভাগ অপরিবর্তিত থাকার নিশ্চয়তা হিসেবে নয়।</li>
+</ol>
+</section>
+
+<section>
+<h2>9. What a Successful Result Looks Like</h2>
+<p>আপনার লক্ষ্য এমন একটি Medium Article পাওয়া, যেটি:</p>
+<ul>
+<li>Still your original article.</li>
+<li>Still communicates your original message.</li>
+<li>Preserves your writing identity and authorial voice.</li>
+<li>Has better clarity and readability where needed.</li>
+<li>Has improved structure and flow only where authorized.</li>
+<li>Communicates its central thesis consistently.</li>
+<li>Offers a better reading experience without relying on clickbait or generic formulas.</li>
+</ul>
+<div class="callout success"><strong>THE PRINCIPLE</strong><br><span style="font-size:1.2rem;font-weight:800">Preserve the Author. Improve the Article.</span></div>
+</section>
+</main>
+<footer>Edit with Lenses — Medium Edition · User Manual</footer>
+</div>
+</body>
+</html>

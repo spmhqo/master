@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit with Lenses - Prompt Generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--accent-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    /* Custom Scrollbar */
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+      text-transform: uppercase;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Edit with Lenses</h1>
+      <p class="subtitle">Controlled Content Refinement</p>
+      <p style="color: var(--text-secondary); margin-top: 14px;">P1 Review → P2 Plan → P3 Edit &amp; Diagnose → P4 Optimize only when P3 says REQUIRED</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P1: Multi-Lens Content Review</span>
+        </div>
+        <div class="prompt-content" id="p1">PROMPT 1: MULTI-LENS CONTENT REVIEW
+
+PURPOSE
+Original Draft-টির প্রকৃত দুর্বলতা তিনটি আলাদা দৃষ্টিভঙ্গি থেকে শনাক্ত করুন। এটি শুধুমাত্র Review ও Diagnosis-এর ধাপ। এই ধাপে কোনও Editing বা Rewriting করবেন না।
+
+GOVERNING PRINCIPLE
+Original Draft-কে তার নিজস্ব বিষয়, উদ্দেশ্য, Central Thesis, Structure, Format, Presentation Style এবং Author's Voice-সহ মূল্যায়ন করুন। কেবল এমন সমস্যা শনাক্ত করুন, যার সংশোধনে Content-এর মান বাস্তবিকভাবে উন্নত হবে। পরিবর্তনের জন্য পরিবর্তনের সুপারিশ করবেন না।
+
+THREE REVIEW LENSES
+
+1. SEASONED WRITING EDITOR LENS
+একজন অভিজ্ঞ ও কঠোর Writing Editor-এর দৃষ্টিভঙ্গি থেকে পরীক্ষা করুন:
+- Generic, vague, repetitive বা unnecessary শব্দ, বাক্য ও ব্যাখ্যা।
+- দুর্বল বাক্যগঠন, awkward expression এবং অস্বাভাবিক শব্দচয়ন।
+- একই বক্তব্যের অপ্রয়োজনীয় পুনরাবৃত্তি।
+- যেখানে কম বা আরও নির্ভুল শব্দে বক্তব্য প্রকাশ করা সম্ভব।
+
+2. FIRST-TIME READER LENS
+বিষয়টি প্রথমবার পড়ছেন এমন পাঠকের দৃষ্টিভঙ্গি থেকে পরীক্ষা করুন:
+- কোথায় পাঠক বুঝতে অসুবিধা বা বিভ্রান্তি অনুভব করতে পারেন।
+- কোথায় Context, Explanation বা Logical Connection অনুপস্থিত।
+- কোথায় আগ্রহ কমে যেতে পারে বা বাক্য পুনরায় পড়তে হতে পারে।
+- কোথায় ভাষা অতিরিক্ত Formal, Artificial বা Unnatural মনে হতে পারে।
+
+3. KNOWLEDGEABLE READER LENS
+বিষয়টি আগে থেকেই জানেন এমন পাঠকের দৃষ্টিভঙ্গি থেকে পরীক্ষা করুন:
+- কোথায় Content অপ্রয়োজনীয়ভাবে Basic বা পুনরাবৃত্তিমূলক।
+- কোথায় Information Value বা Insight কম।
+- কোথায় ব্যাখ্যা আরও অর্থবহ বা গভীর হওয়া প্রয়োজন।
+
+Basic Information মানেই অপ্রয়োজনীয় নয়। পাঠকের বোঝার জন্য প্রয়োজনীয় Basic Explanation-কে দুর্বলতা হিসেবে চিহ্নিত করবেন না।
+
+REVIEW RULES
+1. প্রতিটি Observation-এর সঙ্গে সংশ্লিষ্ট Heading, Section, Paragraph বা Sentence শনাক্ত করুন।
+2. কী সমস্যা, কেন সমস্যা এবং কী ধরনের Improvement প্রয়োজন তা ব্যাখ্যা করুন।
+3. প্রকৃত Content Weakness ও ব্যক্তিগত Style Preference আলাদা রাখুন।
+4. যে অংশ কার্যকর, সেটি অপরিবর্তিত রাখার সুপারিশ করুন।
+5. নতুন Thesis, Argument, তথ্য, উদাহরণ বা বক্তব্য যোগ করার সুপারিশ করবেন না।
+6. পরস্পরবিরোধী Recommendation দেবেন না।
+7. কোনও বাক্য Rewrite করবেন না এবং Original Draft সম্পাদনা করবেন না।
+
+REQUIRED OUTPUT
+প্রথমে তিনটি Lens অনুযায়ী বিস্তারিত Observation দিন। তারপর এই Table পূরণ করুন:
+
+| Lens | নির্দিষ্ট Location | শনাক্ত করা সমস্যা | কেন পরিবর্তন প্রয়োজন | প্রত্যাশিত উন্নতি |
+|---|---|---|---|---|
+
+সবশেষে তিনটি তালিকা দিন:
+A. প্রকৃতপক্ষে সংশোধন প্রয়োজন।
+B. ঐচ্ছিক Improvement।
+C. ইতিমধ্যেই কার্যকর—অপরিবর্তিত রাখা উচিত।
+
+এই ধাপে Opening বা Ending-এর Thesis Alignment নিয়ে কোনও সমস্যা চোখে পড়লে সেটিও Location ও কারণসহ নথিভুক্ত করুন। তবে এখনই সেটি Rewrite করবেন না। এই Observation পরবর্তী ধাপগুলিতে ব্যবহার করা হবে।
+
+FINAL INSTRUCTION: Review only. Do not rewrite, edit, shorten, expand or restructure the Original Draft.
+
+ORIGINAL DRAFT:
+[PASTE THE COMPLETE ORIGINAL DRAFT HERE]</div>
+        <button class="btn copy-btn" onclick="copyText('p1', this)">
+          <span>Copy P1</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P2: Consolidated Editing Checklist</span>
+        </div>
+        <div class="prompt-content" id="p2">PROMPT 2: CONSOLIDATED EDITING CHECKLIST
+
+PURPOSE
+P1-এর Multi-Lens Review এবং Original Draft বিশ্লেষণ করে একটি নির্দিষ্ট, বাস্তবায়নযোগ্য Editing Checklist ও Content Preservation Checklist তৈরি করুন। এই ধাপে কোনও Editing করবেন না।
+
+GOVERNING PRINCIPLE
+Improve the Original Draft without changing its identity, purpose, meaning, structure or intended presentation.
+
+SOURCE PRIORITY
+- Original Draft হলো মূল ও নির্ভরযোগ্য Source।
+- P1 Review হলো সম্ভাব্য সমস্যা শনাক্ত করার Diagnostic Input।
+- এই দুটির মধ্যে অসামঞ্জস্য থাকলে Original Draft-কে ভিত্তি করে Observation পুনরায় যাচাই করুন।
+- P1-এর প্রতিটি Recommendation অন্ধভাবে গ্রহণ করবেন না। কেবল বাস্তব ও যুক্তিসঙ্গত Recommendation রাখুন।
+
+PART 1: CONSOLIDATED EDITING CHECKLIST
+P1-এর পুনরাবৃত্ত Observation একত্রিত করে প্রতিটি পরিবর্তনের জন্য উল্লেখ করুন:
+- Location: কোন Heading, Section, Paragraph বা Sentence?
+- Identified Issue: নির্দিষ্ট সমস্যাটি কী?
+- Required Improvement: ঠিক কী পরিবর্তন প্রয়োজন?
+- Reason: কেন পরিবর্তন প্রয়োজন?
+- Expected Benefit: কোন Content Quality উন্নত হবে?
+
+Recommendation-গুলি চারটি Category-তে ভাগ করুন:
+A. ESSENTIAL CORRECTIONS — Clarity, comprehension বা correctness-এর জন্য অপরিহার্য সংশোধন।
+B. RECOMMENDED IMPROVEMENTS — Content Quality উল্লেখযোগ্যভাবে বাড়াবে এমন পরিবর্তন।
+C. OPTIONAL REFINEMENTS — করা যেতে পারে, কিন্তু অপরিহার্য নয়। এগুলি স্বয়ংক্রিয়ভাবে অনুমোদিত নয়।
+D. NO CHANGE REQUIRED — যে অংশ কার্যকর এবং অপরিবর্তিত থাকা উচিত।
+
+PART 2: CONTENT PRESERVATION CHECKLIST
+Original Draft-এর যে বৈশিষ্ট্যগুলি সংরক্ষণ করতে হবে তা স্পষ্টভাবে তালিকাভুক্ত করুন:
+1. Original Topic, Subject Focus ও Intended Purpose.
+2. Central Thesis, Core Argument ও Author's Intent.
+3. Facts, Information, Explanations, Examples ও References.
+4. Overall Structure, Section Sequence ও Logical Flow.
+5. Headings, Subheadings, Paragraph Organization ও Formatting.
+6. Original Content Format ও Presentation Style.
+7. Author's Voice, Tone ও Intended Audience.
+8. Original Conclusion ও Intended Message.
+
+কোনও উপাদান পরিবর্তনের প্রয়োজন হলে তার Location, কারণ এবং অনুমোদিত পরিবর্তনের সীমা নির্দিষ্ট করুন।
+
+PART 3: EDITING BOUNDARIES
+- সম্পূর্ণ Article নতুন করে লেখা যাবে না।
+- Original Structure, Format বা Section Sequence নিজের সিদ্ধান্তে পরিবর্তন করা যাবে না।
+- নতুন তথ্য, দাবি, যুক্তি, উদাহরণ, Statistics বা Reference তৈরি করা যাবে না।
+- Original Information বা গুরুত্বপূর্ণ Explanation বাদ দেওয়া যাবে না, যদি না নির্দিষ্টভাবে অনুমোদিত হয়।
+- প্রয়োজন অনুযায়ী বাক্য পুনর্গঠন এবং একই Paragraph-এর মধ্যে বাক্যের ক্রম পরিবর্তন করা যাবে।
+- কাছাকাছি Paragraph-এর মধ্যে বাক্য স্থানান্তর করা যাবে কেবল Logical Flow উন্নত হলে এবং মূল বক্তব্য অক্ষুণ্ণ থাকলে।
+- বিদ্যমান তথ্যের ভিত্তিতে প্রয়োজনীয় Connecting Sentence যোগ করা যাবে; নতুন তথ্য বা নতুন Argument যোগ করা যাবে না।
+- Section, Heading বা Format পরিবর্তন স্বয়ংক্রিয়ভাবে অনুমোদিত নয়; নির্দিষ্ট অনুমোদন প্রয়োজন।
+
+PART 4: EXECUTION-READY INSTRUCTIONS
+P3-তে সরাসরি ব্যবহারযোগ্য, দ্ব্যর্থহীন Checklist তৈরি করুন। Essential Corrections এবং Recommended Improvements-কে অনুমোদিত Editing হিসেবে চিহ্নিত করুন। Optional Refinements-কে আলাদা রাখুন এবং P3-কে সেগুলি বাস্তবায়ন না করতে বলুন, যদি না ব্যবহারকারী স্পষ্টভাবে অনুমোদন করেন।
+
+PART 5: THESIS ALIGNMENT OBSERVATIONS
+P1-এ Opening বা Ending নিয়ে Thesis Alignment সংক্রান্ত কোনও Observation থাকলে তা আলাদা করে উল্লেখ করুন। P1-এ এমন Observation না থাকলেও Original Draft-এ স্পষ্ট সমস্যা দেখা গেলে সেটি কারণসহ নথিভুক্ত করুন। এই পর্যায়ে Opening বা Ending Rewrite করবেন না। P3-তে সম্পাদনার পর পুনরায় Diagnostic Decision নেওয়া হবে।
+
+FINAL INSTRUCTION: Produce only the Consolidated Editing Checklist and Content Preservation Checklist. Do not edit or rewrite the Original Draft.
+
+SOURCE MATERIAL
+P1 MULTI-LENS REVIEW:
+[PASTE THE COMPLETE P1 OUTPUT HERE]
+
+ORIGINAL DRAFT:
+[PASTE THE EXACT COMPLETE ORIGINAL DRAFT HERE]</div>
+        <button class="btn copy-btn" onclick="copyText('p2', this)">
+          <span>Copy P2</span>
+        </button>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P3: Controlled Editing & Thesis Diagnosis</span>
+        </div>
+        <div class="prompt-content" id="p3">PROMPT 3: CONTROLLED CONTENT EDITING &amp; THESIS DIAGNOSIS
+
+PURPOSE
+P2-এর অনুমোদিত Editing Checklist অনুসরণ করে Original Draft সরাসরি সম্পাদনা করুন। তারপর সম্পাদিত Article-এর Opening ও Ending-এর সঙ্গে Central Thesis-এর সামঞ্জস্য পরীক্ষা করে P4 প্রয়োজন কি না সিদ্ধান্ত নিন।
+
+GOVERNING PRINCIPLE
+PRESERVE THE ORIGINAL. IMPROVE ONLY WHAT NEEDS IMPROVEMENT.
+
+SOURCE PRIORITY
+1. Original Draft হলো Master Source; সেটিই সম্পাদনার ভিত্তি।
+2. P2 Editing Checklist হলো অনুমোদিত পরিবর্তনের নির্দেশিকা।
+3. P2 Content Preservation Checklist হলো বাধ্যতামূলক সীমারেখা।
+Checklist কখনও Original Draft-এর বিকল্প নয়। Checklist-এর সঙ্গে Original Draft-এর সংঘাত হলে নিজে থেকে অনুমান করে পরিবর্তন করবেন না; বিষয়টি Flag করুন।
+
+PART 1: CONTROLLED EDITING
+P2-এর Essential Corrections এবং Recommended Improvements বাস্তবায়ন করুন। Optional Refinements বাস্তবায়ন করবেন না, যদি না ব্যবহারকারী আলাদাভাবে অনুমোদন দিয়ে থাকেন।
+
+অনুমোদিত কাজ:
+- দুর্বল, অস্পষ্ট বা অস্বাভাবিক বাক্য পুনর্গঠন।
+- প্রয়োজন অনুযায়ী শব্দচয়ন ও বাক্যগঠন উন্নত করা।
+- একই Paragraph-এর মধ্যে বাক্যের অবস্থান পরিবর্তন।
+- Logical Flow-এর বাস্তব প্রয়োজন থাকলে কাছাকাছি Paragraph-এর মধ্যে বাক্য স্থানান্তর।
+- বিদ্যমান তথ্য ও বক্তব্যের ভিত্তিতে প্রয়োজনীয় Connecting Sentence যোগ করা।
+- Repetition, Unnecessary Words ও Awkward Expressions সংশোধন।
+
+অননুমোদিত কাজ:
+- Article নতুন করে লেখা বা নিজের মতো করে পুনর্গঠন।
+- Original Topic, Central Thesis, Core Argument বা Author's Intent পরিবর্তন।
+- নতুন Facts, Claims, Examples, Stories, Statistics বা References যোগ করা।
+- অনুমোদন ছাড়া Original Information, Explanation বা Section বাদ দেওয়া।
+- Original Structure, Headings, Format, Presentation Style বা Author's Voice অপ্রয়োজনে পরিবর্তন।
+- P2 Checklist-এর বাইরে অতিরিক্ত Stylistic Editing।
+
+কোনও Recommendation Original Draft-এর বক্তব্য, তথ্য বা Preservation Checklist-এর সঙ্গে সাংঘর্ষিক হলে সেই পরিবর্তন স্থগিত রাখুন এবং কারণ জানান।
+
+PART 2: FULL-DRAFT FIDELITY CHECK
+Final Edited Draft দেওয়ার আগে Original Draft-এর সঙ্গে তুলনা করে যাচাই করুন:
+1. Topic, Thesis, Argument ও Intended Meaning অক্ষুণ্ণ আছে কি?
+2. Structure, Section Sequence, Format ও Presentation Style বজায় আছে কি?
+3. Original Facts, Information, Examples ও Explanations অক্ষুণ্ণ আছে কি?
+4. Checklist-এর বাইরে কোনও পরিবর্তন হয়েছে কি?
+5. নতুন বা Unsupported Claim যুক্ত হয়েছে কি?
+6. Author's Voice ও Intended Audience বজায় আছে কি?
+7. অনুমোদিত Editing Instructions বাস্তবায়িত হয়েছে কি?
+
+সম্ভব হলে অননুমোদিত পরিবর্তন সংশোধন করুন। যাচাই করতে না পারলে নিশ্চিতভাবে যাচাই হয়েছে বলে দাবি করবেন না।
+
+PART 3: POST-EDIT THESIS ALIGNMENT DIAGNOSIS — MANDATORY
+এখন সম্পাদিত Article-টি সম্পূর্ণ পড়ে Central Thesis ও Core Argument শনাক্ত করুন। তারপর Opening এবং Ending পরীক্ষা করুন:
+
+A. OPENING CHECK
+- Opening কি Article-এর প্রকৃত বিষয় ও Central Thesis যথেষ্ট পরিষ্কারভাবে তুলে ধরছে?
+- পাঠক কি শুরুতেই Article-এর মূল দিক ও উদ্দেশ্য বুঝতে পারছেন?
+- Opening কি Body Content দ্বারা সমর্থিত?
+
+B. ENDING CHECK
+- Ending কি Article-এর Central Thesis ও Core Argument-এর সঙ্গে সামঞ্জস্যপূর্ণ?
+- Ending কি মূল বক্তব্যকে যথাযথভাবে সম্পূর্ণ করছে?
+- Ending-এ কি অপ্রয়োজনীয় পুনরাবৃত্তি, অস্পষ্টতা বা অসমর্থিত দাবি রয়েছে?
+
+C. DECISION RULE
+P4 প্রয়োজন হবে যদি Opening অথবা Ending-এর কোনও একটি ক্ষেত্রে বাস্তব, নির্দিষ্ট এবং অর্থপূর্ণ Thesis Alignment সমস্যা থাকে, যা সংশোধন করলে Article উন্নত হবে।
+
+Opening ও Ending ইতিমধ্যেই কার্যকর, Thesis-aligned এবং Body দ্বারা সমর্থিত হলে P4 প্রয়োজন নেই। কেবল পরিবর্তন করার জন্য P4 সুপারিশ করবেন না।
+
+এই সিদ্ধান্ত P1-এর Thesis-related Observations, P2 Checklist এবং বর্তমান Final Edited Draft—তিনটিই বিবেচনা করে নিন। P1-এ সমস্যা চিহ্নিত হয়েছিল বলে ধরে নেবেন না যে P3-এর পরেও সেটি রয়ে গেছে; আবার P3 Editing-এ নতুন অসামঞ্জস্য তৈরি হয়েছে কি না তাও পরীক্ষা করুন।
+
+PART 4: REQUIRED OUTPUT
+
+A. FINAL EDITED DRAFT
+Original Format, Heading, Section Sequence, Paragraph Organization ও Presentation Style বজায় রেখে সম্পূর্ণ Edited Draft দিন। Article-এর মধ্যে Editing Commentary ঢোকাবেন না।
+
+B. EDITING SUMMARY
+কী ধরনের পরিবর্তন করেছেন, কোন Content Quality উন্নত হয়েছে এবং কোনও Recommendation স্থগিত রেখেছেন কি না—সংক্ষেপে জানান।
+
+C. FIDELITY REPORT
+Meaning, Information, Structure, Format ও Author's Voice সংরক্ষণের যাচাই-ফলাফল জানান। কোনও অনিশ্চয়তা থাকলে উল্লেখ করুন।
+
+D. THESIS ALIGNMENT DIAGNOSTIC
+- Central Thesis ও Core Argument: সংক্ষেপে উল্লেখ করুন।
+- Opening: Aligned / Needs Improvement — কারণসহ।
+- Ending: Aligned / Needs Improvement — কারণসহ।
+- P4 Decision: REQUIRED / NOT REQUIRED.
+- REQUIRED হলে: কোন নির্দিষ্ট সমস্যা P4-তে সংশোধন করতে হবে তা লিখুন।
+- NOT REQUIRED হলে: স্পষ্টভাবে জানান যে বর্তমান Opening ও Ending অপরিবর্তিত রাখাই যথাযথ।
+
+FINAL INSTRUCTION: The edited article must remain recognizably the same original article, improved only through authorized editing. Do not perform Thesis Optimization in this prompt; diagnose it and make the conditional decision only.
+
+SOURCE MATERIAL
+ORIGINAL DRAFT:
+[PASTE THE EXACT COMPLETE ORIGINAL DRAFT HERE]
+
+P2 CONSOLIDATED EDITING CHECKLIST + CONTENT PRESERVATION CHECKLIST:
+[PASTE THE COMPLETE APPROVED P2 OUTPUT HERE]</div>
+        <button class="btn copy-btn" onclick="copyText('p3', this)">
+          <span>Copy P3</span>
+        </button>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P4: Conditional Thesis Alignment</span>
+        </div>
+        <div class="prompt-content" id="p4">PROMPT 4: CONDITIONAL THESIS ALIGNMENT OPTIMIZATION
+
+WHEN TO USE THIS PROMPT
+এই Prompt কেবল তখনই ব্যবহার করবেন, যখন P3-এর THESIS ALIGNMENT DIAGNOSTIC-এ P4 Decision: REQUIRED বলা হয়েছে। P3 যদি NOT REQUIRED বলে, এই Prompt চালানোর প্রয়োজন নেই।
+
+PURPOSE
+P3-এর Final Edited Draft-এর Central Thesis ও Core Argument অক্ষুণ্ণ রেখে শুধুমাত্র Opening এবং Ending-এর Thesis Alignment উন্নত করুন। এটি সম্পূর্ণ Article Rewrite করার নির্দেশ নয়।
+
+MANDATORY PRE-EXECUTION GATE
+প্রথমে P3-এর Thesis Alignment Diagnostic পড়ুন।
+- যদি P3 Decision = NOT REQUIRED হয়, কোনও পরিবর্তন করবেন না। P3 Final Edited Draft-টি হুবহু ফিরিয়ে দিন এবং জানান P4 Optimization প্রয়োজন নেই।
+- যদি P3 Decision = REQUIRED হয়, P3-তে চিহ্নিত নির্দিষ্ট সমস্যাগুলিই সমাধান করুন।
+- P3-তে REQUIRED বলা হলেও প্রদত্ত Draft-এ সমস্যাটি আর না থাকলে, পরিবর্তন করবেন না; কারণ ব্যাখ্যা করুন।
+
+PART 1: THESIS IDENTIFICATION
+Final Edited Article থেকেই শনাক্ত করুন:
+- Central Thesis.
+- Core Argument.
+- Author's Intended Message.
+- Body Content কী সমর্থন করে এবং কী সমর্থন করে না।
+নতুন Thesis বা Argument তৈরি করবেন না।
+
+PART 2: OPENING OPTIMIZATION
+শুধুমাত্র P3 Diagnostic-এ চিহ্নিত প্রয়োজন অনুযায়ী Opening উন্নত করুন, যাতে:
+- Article-এর বিষয় ও মূল দিক পরিষ্কার হয়।
+- Opening Central Thesis-এর সঙ্গে সামঞ্জস্যপূর্ণ হয়।
+- Opening-এর প্রতিশ্রুতি Body Content দ্বারা সমর্থিত হয়।
+- Original Tone, Voice, Format ও Intended Audience বজায় থাকে।
+Opening ইতিমধ্যেই কার্যকর হলে অপরিবর্তিত রাখুন।
+
+PART 3: ENDING OPTIMIZATION
+শুধুমাত্র P3 Diagnostic-এ চিহ্নিত প্রয়োজন অনুযায়ী Ending উন্নত করুন, যাতে:
+- Central Thesis ও Core Argument যথাযথভাবে প্রতিফলিত হয়।
+- Article-এর বক্তব্যের স্বাভাবিক ও অর্থপূর্ণ সমাপ্তি ঘটে।
+- Body Content-এ নেই এমন নতুন দাবি বা Argument তৈরি না হয়।
+- অপ্রয়োজনীয় পুনরাবৃত্তি এড়িয়ে চলা হয়।
+Ending ইতিমধ্যেই কার্যকর হলে অপরিবর্তিত রাখুন।
+
+PART 4: STRICT PRESERVATION RULES
+- কেবল Opening এবং/অথবা Ending পরিবর্তন করা যাবে—P3 Diagnostic-এ যে অংশের প্রয়োজন চিহ্নিত হয়েছে।
+- Body Paragraphs, Middle Sections, Headings, Section Sequence ও অন্য সব অংশ P3 Final Edited Draft থেকে হুবহু অপরিবর্তিত রাখতে হবে।
+- নতুন Facts, Examples, Statistics, References বা Unsupported Claims যোগ করা যাবে না।
+- Original Topic, Thesis, Argument, Author's Intent, Voice, Format ও Presentation Style অক্ষুণ্ণ রাখতে হবে।
+- পরিবর্তনের প্রয়োজন না থাকলে সংশ্লিষ্ট অংশ অপরিবর্তিত রাখুন।
+
+PART 5: POST-OPTIMIZATION FIDELITY CHECK
+যাচাই করুন:
+1. কেবল অনুমোদিত Opening/Ending অংশেই পরিবর্তন হয়েছে কি?
+2. Body ও অন্য সব অপরিবর্তিত অংশ P3 Draft-এর সঙ্গে হুবহু মেলে কি?
+3. Central Thesis ও Core Argument অক্ষুণ্ণ আছে কি?
+4. Opening/Ending-এর প্রতিটি বক্তব্য Body দ্বারা সমর্থিত কি?
+5. নতুন তথ্য বা Unsupported Claim যুক্ত হয়েছে কি?
+কোনও অননুমোদিত পরিবর্তন থাকলে সংশোধন করুন। হুবহু মিল যাচাই করতে না পারলে তা স্পষ্টভাবে জানান।
+
+REQUIRED OUTPUT
+A. FINAL ARTICLE — Optimized Opening/Ending-সহ সম্পূর্ণ Article। P3 Draft-এর বাকি অংশ হুবহু অপরিবর্তিত রাখুন।
+B. OPTIMIZATION SUMMARY — Opening ও Ending-এ কী পরিবর্তন হয়েছে এবং কেন।
+C. FIDELITY REPORT — Body, Structure, Format ও Thesis সংরক্ষণের যাচাই-ফলাফল।
+
+FINAL INSTRUCTION: Optimize only what P3 has specifically diagnosed as needing improvement. Do not rewrite the article or make unrelated improvements.
+
+SOURCE MATERIAL
+P3 THESIS ALIGNMENT DIAGNOSTIC:
+[PASTE THE COMPLETE P3 DIAGNOSTIC HERE]
+
+P3 FINAL EDITED DRAFT:
+[PASTE THE EXACT COMPLETE P3 FINAL EDITED DRAFT HERE]</div>
+        <button class="btn copy-btn" onclick="copyText('p4', this)">
+          <span>Copy P4 (Conditional)</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

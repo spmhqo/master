@@ -1,0 +1,59 @@
+First Community Content Idea Genie
+
+How to identify the first ever Community Content
+
+Step#1:
+
+Activity: Class Study
+Persona: Students
+Purpose: Use of AI
+
+
+Create Keywords with pain-point-keyword-miner.html (in this case -> Struggle Keywords)
+Select one
+
+Format:
+
+Keyword: Learning Textbook Chapters with AI 
+Pain Points: Students may struggle to identify the important ideas in lengthy textbook chapters and understand how different sections connect. They may also find it difficult to study a chapter systematically without skipping essential concepts. 
+Topic of discussions: It explores textbook-based learning as a complete activity. It could enable chapter analysis, structured study plans, concept breakdowns and guided chapter-learning workflows from a single textbook chapter.
+
+
+Create headlines with headlines.html
+
+
+CONTENT CREATION OPTION A
+
+Step#1: Select a headline
+
+Step#2: CREATE CONTENT
+
+Tool: c-c.html
+
+Input:
+
+Keyword: Learning Textbook Chapters with AI Pain Points: Students may struggle to identify the important ideas in lengthy textbook chapters and understand how different sections connect. They may also find it difficult to study a chapter systematically without skipping essential concepts. Topic of discussions: It explores textbook-based learning as a complete activity. It could enable chapter analysis, structured study plans, concept breakdowns and guided chapter-learning workflows from a single textbook chapter.
+
+
+NOTES
+
+1, to create content on the headline use the tool: specific-headline.html + https://spmhqo.github.io/ccc/c-c-own-keyword.html (P#1)
+
+
+CONTENT CREATION OPTION B
+
+Step#1: Select a headline / Keywords with pain-point-keyword-miner.html / APP Keywords
+
+Step#2: Create Compelling Keywords with compelling-keywords.html
+
+Step#3: CREATE CONTENT
+
+Tool: c-c.html
+
+Input:
+
+Keyword: Learning Textbook Chapters with AI Pain Points: Students may struggle to identify the important ideas in lengthy textbook chapters and understand how different sections connect. They may also find it difficult to study a chapter systematically without skipping essential concepts. Topic of discussions: It explores textbook-based learning as a complete activity. It could enable chapter analysis, structured study plans, concept breakdowns and guided chapter-learning workflows from a single textbook chapter.
+
+NOTES
+
+1, to create content on the headline use the tool: specific-headline.html + https://spmhqo.github.io/ccc/c-c-own-keyword.html (P#1)

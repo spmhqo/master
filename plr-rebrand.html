@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rebrand A PLR - (plr selling system)</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Rebrand A PLR</h1>
+      <p class="sub-header">((plr selling system))</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt Card 1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1</span>
+        </div>
+        <div class="prompt-content" id="p1">আপলোড করা অ্যাপটি একটি PLR (Private Label Rights) প্রোডাক্ট। আমি অ্যাপটির মালিকানা ও ব্র্যান্ডিং পরিবর্তন করে নিজের নামে বাজারজাত ও বিক্রি করতে চাই।
+
+আপনার কাজ হলো প্রথমে আপলোড করা অ্যাপটি ভালোভাবে পর্যালোচনা করা। অ্যাপটির মূল উদ্দেশ্য, প্রধান ফিচার, কার্যপদ্ধতি, Target Audience এবং ব্যবহারকারীর জন্য এর ব্যবহারিক উপযোগিতা বোঝার চেষ্টা করুন।
+
+এরপর অ্যাপটির জন্য একটি স্বতন্ত্র, আকর্ষণীয় এবং বাজারজাত করার উপযোগী Brand Name সাজেস্ট করুন।
+
+Naming Guidelines:
+- নামটি অ্যাপের মূল কাজ ও উদ্দেশ্যের সঙ্গে সামঞ্জস্যপূর্ণ হতে হবে।
+- নামটি সহজে মনে রাখা, উচ্চারণ করা এবং লেখা সম্ভব হওয়া উচিত।
+- নামটি স্বতন্ত্র, আধুনিক এবং ব্র্যান্ড হিসেবে ব্যবহারযোগ্য হওয়া উচিত।
+- সাধারণ বা অতিরিক্ত জেনেরিক নাম এড়িয়ে চলুন।
+- নামের মধ্যে অ্যাপটির মূল Value বা Function-এর ইঙ্গিত থাকা ভালো।
+
+OUTPUT STRUCTURE
+
+App Name / Brand Name:
+অ্যাপটির জন্য আপনার সেরা একটি Brand Name দিন।
+
+App Tagline:
+ব্র্যান্ডের মূল উদ্দেশ্য ও ব্যবহারিক Value প্রকাশ করে এমন একটি সংক্ষিপ্ত Tagline লিখুন।
+
+Sales Page Value Proposition:
+একটি সংক্ষিপ্ত, আকর্ষণীয় এবং Customer-Focused Value Proposition লিখুন। এতে স্পষ্ট হবে অ্যাপটি কী কাজে লাগে, কীভাবে ব্যবহারকারীকে সাহায্য করে এবং কেন এটি তাঁর কাছে মূল্যবান হতে পারে।
+
+Product Category:
+অ্যাপটি কোন Product Category বা Market Niche-এর অন্তর্গত, তা নির্দিষ্ট করুন।
+
+IMPORTANT RULES
+- আপলোড করা অ্যাপের প্রকৃত ফিচার ও কার্যকারিতার ভিত্তিতেই সমস্ত উত্তর তৈরি করবেন।
+- অ্যাপে নেই এমন কোনও ফিচার, সুবিধা বা কার্যকারিতা কল্পনা করে যোগ করবেন না।
+- অনুমানকে প্রতিষ্ঠিত তথ্য হিসেবে উপস্থাপন করবেন না।
+- একাধিক নামের তালিকা দেবেন না। সবদিক বিবেচনা করে একটি সেরা Brand Name নির্বাচন করুন।
+- উত্তর সংক্ষিপ্ত, নির্দিষ্ট এবং বাজারজাত করার উপযোগী রাখুন।</div>
+        <button class="btn copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt #1</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

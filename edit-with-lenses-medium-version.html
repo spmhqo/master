@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit with Lenses - Medium Article Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: var(--accent-primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 30px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 25px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    /* Custom Scrollbar */
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+      text-transform: uppercase;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .step-card { padding: 25px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Edit with Lenses</h1>
+      <p class="subtitle">Medium Article Editorial Refinement</p>
+      <p style="color: var(--text-secondary); margin-top: 14px;">P1 Review → P2 Plan → P3 Edit &amp; Diagnose → P4 Optimize only when REQUIRED</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt #1 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P1: Medium Article Review</span>
+        </div>
+        <div class="prompt-content" id="p1">PROMPT 1: MEDIUM ARTICLE — MULTI-LENS EDITORIAL REVIEW
+
+PURPOSE
+Review the complete draft as an article intended for publication on Medium. Diagnose genuine editorial weaknesses from three distinct reader perspectives. This is a review-only stage. Do not edit, rewrite, restructure, or produce a replacement article.
+
+GOVERNING PRINCIPLE
+Treat the submitted draft as the author&#x27;s work, not raw material for a new article. Evaluate it in the context of its apparent purpose, genre, intended audience, central thesis, structure, format, voice, and level of detail. Recommend a change only when it would materially improve the article. Do not impose a generic Medium formula or change something merely to make it sound more polished.
+
+MEDIUM-SPECIFIC EDITORIAL CONTEXT
+Assess the draft as a Medium article while respecting its actual genre (for example: personal essay, opinion, explanatory article, tutorial, case study, or analysis). Consider the following where relevant:
+- Title and subtitle: Do they accurately communicate the article&#x27;s subject and value without overpromising or using clickbait?
+- Opening: Does it give the reader a clear reason to continue? Does it establish the subject, tension, question, experience, or central idea appropriate to this article&#x27;s genre?
+- Reader orientation: Can a Medium reader understand early what the article is about and why it matters?
+- Structure and progression: Do sections and headings help readers follow the argument or experience? Does each section earn its place?
+- Readability on screen: Are paragraphs, sentence lengths, lists, and headings comfortable to read without fragmenting the article into choppy one-line paragraphs?
+- Flow and engagement: Are transitions natural? Are there stretches that become repetitive, abstract, slow, or difficult to follow?
+- Substance and credibility: Are claims supported by the draft&#x27;s own evidence, examples, reasoning, or experience? Are there unsupported leaps or overstatements?
+- Ending: Does it deliver a satisfying conclusion consistent with the article, rather than stopping abruptly, repeating the whole article, or adding an unrelated call to action?
+Do not assume every article needs a personal story, a dramatic hook, short paragraphs throughout, a lesson list, or a call to action. Apply only criteria that suit the draft.
+
+THREE REVIEW LENSES
+
+1. SEASONED EDITOR LENS
+Read as an experienced editor who values precision, substance, and a distinct authorial voice. Identify:
+- Generic, vague, repetitive, inflated, or unnecessary wording.
+- Weak, awkward, imprecise, or unnatural sentences.
+- Redundant explanations, unsupported assertions, and avoidable repetition.
+- Structural or sequencing issues that interrupt the article&#x27;s logic.
+- Title, subtitle, heading, opening, or ending issues that materially affect the article.
+
+2. FIRST-TIME MEDIUM READER LENS
+Read as an interested reader encountering this subject and author for the first time. Identify:
+- Points of confusion, missing context, unexplained terms, or unclear references.
+- Places where the reader may lose interest or need to reread.
+- Sections where the purpose or connection to the main idea is unclear.
+- Language that feels unnecessarily formal, artificial, promotional, or difficult.
+- Formatting or paragraph-density issues that make on-screen reading harder.
+
+3. KNOWLEDGEABLE READER LENS
+Read as a reader who already understands the subject. Identify:
+- Explanations that are unnecessarily basic or repeated.
+- Sections that offer little insight, specificity, evidence, or practical value.
+- Claims that need stronger reasoning or clearer qualification.
+- Opportunities to make an existing insight more precise without adding a new argument or unsupported information.
+Do not label necessary context as needless merely because an informed reader already knows it.
+
+REVIEW RULES
+1. Locate every observation by title/subtitle, section heading, paragraph, or a short identifying phrase from the draft.
+2. Explain the issue, why it matters to this article&#x27;s intended reader, and the type of improvement that may help. Do not write the replacement sentence.
+3. Separate genuine editorial problems from subjective preferences.
+4. Preserve the author&#x27;s perspective, level of formality, personality, and intended genre. Do not make every author sound alike.
+5. Do not invent facts, research, statistics, quotations, anecdotes, examples, sources, or claims.
+6. Do not recommend adding a personal story, lesson, list, or CTA unless the draft&#x27;s purpose genuinely calls for it.
+7. Identify effective passages and elements that should remain unchanged.
+8. Do not edit or rewrite any part of the draft.
+
+REQUIRED OUTPUT
+A. ARTICLE PROFILE
+Briefly identify the apparent article type, intended reader, purpose, and central thesis. If any of these cannot be confidently inferred, say so rather than guessing.
+
+B. THREE-LENS REVIEW
+Present the observations separately under the three lenses.
+
+C. CONSOLIDATED OBSERVATION TABLE
+| Lens | Exact location | Observed issue | Why it matters to a Medium reader | Suggested type of improvement |
+
+D. PRESERVE AS-IS
+List the effective elements, passages, structural choices, or formatting choices that should not be changed.
+
+E. PRIORITY SUMMARY
+Separate genuine required corrections from recommended improvements and optional refinements.
+
+F. MEDIUM-SPECIFIC CHECK
+Briefly assess title/subtitle, opening, section structure, on-screen readability, transitions, and ending. Mark each as Effective, Needs Attention, or Not Applicable, with a short reason.
+
+FINAL INSTRUCTION: This is diagnosis only. Do not rewrite, edit, shorten, expand, reformat, or restructure the original article.
+
+ORIGINAL MEDIUM ARTICLE DRAFT:
+[PASTE THE COMPLETE DRAFT HERE, INCLUDING TITLE, SUBTITLE, HEADINGS, AND FORMATTING]</div>
+        <button class="btn copy-btn" onclick="copyText('p1', this)">
+          <span>Copy P1</span>
+        </button>
+      </div>
+
+      <!-- Prompt #2 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P2: Medium Editing Plan</span>
+        </div>
+        <div class="prompt-content" id="p2">PROMPT 2: MEDIUM ARTICLE — CONSOLIDATED EDITING &amp; PRESERVATION PLAN
+
+PURPOSE
+Use the complete P1 editorial review and the exact original draft to create an execution-ready Editing Checklist and Content Preservation Checklist for a Medium article. Do not edit the article in this stage.
+
+GOVERNING PRINCIPLE
+Improve the original article for its intended Medium readers without changing its identity, purpose, thesis, meaning, genre, structure, or intended presentation.
+
+SOURCE PRIORITY
+1. The exact Original Draft is the master source.
+2. P1 is diagnostic input, not an instruction to accept every suggestion.
+3. Re-check each P1 observation against the Original Draft. Reject suggestions that are subjective, unnecessary, unsupported, contradictory, or inconsistent with the author&#x27;s purpose.
+4. Do not infer missing facts or silently resolve gaps using outside knowledge.
+
+PART 1: CONSOLIDATED EDITING CHECKLIST
+Merge duplicate observations and specify each approved change with:
+- Location: title, subtitle, heading, section, paragraph, or identifiable sentence.
+- Identified issue: the precise problem.
+- Authorized action: exactly what should be improved.
+- Reason: why the change matters to the intended reader.
+- Expected benefit: the specific improvement to clarity, flow, credibility, readability, engagement, or usefulness.
+
+Classify every item:
+A. ESSENTIAL CORRECTIONS — needed to resolve a material clarity, coherence, correctness, or comprehension problem supported by the draft.
+B. RECOMMENDED IMPROVEMENTS — likely to materially improve the article without changing its identity or argument.
+C. OPTIONAL REFINEMENTS — subjective or nonessential changes. These are NOT authorized for automatic execution.
+D. NO CHANGE REQUIRED — effective content or presentation that must be preserved.
+
+PART 2: MEDIUM PRESENTATION CHECKLIST
+Assess only where relevant to this article&#x27;s genre and purpose:
+- Title: accurate, specific, clear, and proportionate to what the article delivers.
+- Subtitle: adds useful context or clarifies the article&#x27;s promise without repeating the title.
+- Opening: orients the reader and creates an appropriate reason to continue without clickbait.
+- Headings and section progression: accurately describe sections and support a coherent reading path.
+- Paragraphs and screen readability: improve readability where needed without mechanically shortening every paragraph or creating choppy one-line formatting.
+- Transitions: make the relationship between sections and ideas clear.
+- Examples, evidence, and explanations: retain the author&#x27;s material; identify gaps without inventing material to fill them.
+- Ending: provides an appropriate sense of completion and follows from the article&#x27;s argument or experience.
+- Medium formatting: preserve a clean, readable use of headings, lists, blockquotes, and other formatting already present. Do not propose decorative formatting without a clear reading benefit.
+Do not apply a universal template. The article&#x27;s genre and existing strengths take priority over generic platform conventions.
+
+PART 3: CONTENT PRESERVATION CHECKLIST
+Explicitly protect:
+1. Original topic, scope, purpose, and intended audience.
+2. Central thesis, core argument, and author&#x27;s intended message.
+3. Facts, claims, examples, anecdotes, quotations, references, and explanations supplied by the author.
+4. Article genre and point of view.
+5. Overall structure, section sequence, and logical progression.
+6. Title/subtitle intent, headings, paragraph organization, and existing Medium formatting, except where a specific change is authorized.
+7. Author&#x27;s voice, tone, personality, and intended level of formality.
+8. Nuance, qualifications, uncertainty, and distinctions in the original.
+9. Effective passages identified in P1 as Preserve As-Is.
+10. The intended conclusion and relationship between opening, body, and ending.
+If a particular element is authorized for change, state the exact location and permitted scope. Do not treat a general desire to improve the article as permission to change everything.
+
+PART 4: EDITING BOUNDARIES
+- Do not rewrite the article from scratch.
+- Do not change the article&#x27;s genre, thesis, point of view, or intended audience.
+- Do not add facts, research, statistics, quotations, sources, anecdotes, examples, claims, or arguments.
+- Do not delete meaningful content or compress the article substantially unless a specific deletion is explicitly justified and authorized in the checklist.
+- Sentence-level rewriting is permitted where authorized.
+- Sentence movement within a paragraph is permitted where it improves clarity without changing meaning.
+- Moving a sentence between nearby paragraphs is permitted only when necessary for logical flow and explicitly identified.
+- A connecting sentence may be added only when it expresses a relationship already present in the author&#x27;s material; it must not introduce a new claim.
+- Changes to title, subtitle, headings, section order, paragraph order, or formatting must be specifically listed and authorized. They are not automatically permitted.
+- Do not force Medium conventions such as a personal anecdote, dramatic hook, short one-line paragraphs, numbered takeaways, or a CTA.
+
+PART 5: POST-EDIT THESIS ALIGNMENT CHECK TO PREPARE FOR P3
+Record any P1 observations about the relationship between the title, opening, central thesis, body, and ending. Also note any mismatch independently confirmed in the original draft. Do not rewrite these elements now. P3 must re-evaluate alignment after editing and decide whether P4 is required.
+
+PART 6: EXECUTION-READY PLAN
+Provide a concise, numbered checklist for P3. Clearly distinguish authorized Essential Corrections and Recommended Improvements from non-authorized Optional Refinements. Include the Preservation Checklist as mandatory constraints.
+
+FINAL INSTRUCTION: Produce only the editing plan and preservation plan. Do not edit, rewrite, or reformat the original article.
+
+SOURCE MATERIAL
+P1 MEDIUM ARTICLE REVIEW:
+[PASTE THE COMPLETE P1 OUTPUT HERE]
+
+EXACT ORIGINAL MEDIUM ARTICLE DRAFT:
+[PASTE THE COMPLETE ORIGINAL DRAFT HERE]</div>
+        <button class="btn copy-btn" onclick="copyText('p2', this)">
+          <span>Copy P2</span>
+        </button>
+      </div>
+
+      <!-- Prompt #3 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P3: Controlled Editing & Thesis Diagnosis</span>
+        </div>
+        <div class="prompt-content" id="p3">PROMPT 3: MEDIUM ARTICLE — CONTROLLED EDITING &amp; POST-EDIT DIAGNOSIS
+
+PURPOSE
+Edit the exact Original Draft by implementing only the authorized changes in the approved P2 checklist. Preserve the article as the same article, not a newly generated substitute. After editing, assess whether its title, opening, body, and ending remain aligned and decide whether P4 is required.
+
+GOVERNING PRINCIPLE
+PRESERVE THE ORIGINAL. IMPROVE ONLY WHAT NEEDS IMPROVEMENT.
+
+SOURCE AUTHORITY
+1. The exact Original Draft is the master text to be edited.
+2. The approved P2 Editing Checklist authorizes specific changes.
+3. The P2 Content Preservation Checklist defines mandatory limits.
+4. P1 observations are context only; do not independently add changes that were not approved in P2.
+If these sources conflict, do not guess. Preserve the original wording for the disputed portion and flag the conflict.
+
+PART 1: CONTROLLED MEDIUM ARTICLE EDITING
+Implement P2&#x27;s Essential Corrections and Recommended Improvements only. Do not implement Optional Refinements unless the user has explicitly approved them.
+
+Permitted actions, only where authorized:
+- Rewrite a specific weak or unclear sentence while preserving its meaning.
+- Improve precision, naturalness, grammar, rhythm, and readability.
+- Remove genuine repetition or unnecessary wording without losing meaning or nuance.
+- Improve transitions using relationships already present in the draft.
+- Reorder sentences within a paragraph when needed for clarity.
+- Move a sentence between nearby paragraphs only when P2 explicitly authorizes it and the logical progression is preserved.
+- Make specifically authorized adjustments to the title, subtitle, headings, or formatting.
+
+Do not:
+- Regenerate the article from scratch or replace it with a summary.
+- change the central thesis, core argument, topic, scope, genre, point of view, or authorial intent.
+- Add facts, research, statistics, quotations, anecdotes, examples, references, or unsupported claims.
+- Remove meaningful information, qualifications, nuance, or author-provided material without explicit authorization.
+- Change the section sequence, overall structure, title, subtitle, headings, paragraph order, or Medium formatting unless P2 specifically authorizes the exact change.
+- Make the writing generically inspirational, promotional, dramatic, or conversational if that is not the author&#x27;s voice.
+- Force short one-line paragraphs, formulaic hooks, personal stories, lists, or calls to action merely because the article is intended for Medium.
+- Make any stylistic improvement outside the approved checklist.
+
+MEDIUM READER-EXPERIENCE STANDARD
+While making authorized changes, ensure that the article remains comfortable to read on screen. Keep paragraphs coherent and naturally sized; use headings to clarify real sections; maintain clear transitions; and ensure that the title and subtitle accurately represent what the article delivers. These are quality standards, not permission for unrelated restructuring.
+
+PART 2: FULL-DRAFT FIDELITY CHECK
+Before presenting the edited article, compare it against the exact Original Draft and P2 checklist. Check:
+1. Topic, purpose, thesis, argument, point of view, and intended meaning remain intact.
+2. The article remains the same genre and recognizably the same article.
+3. Structure, section sequence, headings, paragraph organization, and Medium formatting are unchanged except for explicitly authorized changes.
+4. Original facts, examples, anecdotes, quotations, explanations, qualifications, and references have not been lost or altered without authorization.
+5. No new or unsupported information has been introduced.
+6. The author&#x27;s voice, tone, and intended audience remain recognizable.
+7. Every implemented change is authorized by P2.
+8. Unaffected passages remain unchanged as far as possible.
+Correct any unauthorized change you identify before presenting the result. Do not claim exact preservation if you have not verified it.
+
+PART 3: POST-EDIT MEDIUM THESIS-ALIGNMENT DIAGNOSIS — REQUIRED
+Read the complete edited article, including its title and subtitle. Identify its actual central thesis and assess:
+
+A. TITLE AND SUBTITLE
+- Do they accurately represent the article&#x27;s real subject and promise?
+- Do they avoid promising something the body does not deliver?
+- Is there a material mismatch that should be corrected? (Do not assume a title or subtitle must be changed.)
+
+B. OPENING
+- Does it orient the intended reader and establish the article&#x27;s real subject or central idea?
+- Does it create an appropriate reason to continue for this article&#x27;s genre, without clickbait or a forced formula?
+- Is it consistent with the central thesis and supported by the body?
+
+C. BODY ALIGNMENT
+- Does the body develop or support the central thesis introduced by the title and opening?
+- Are there material gaps, contradictions, or promises the body does not fulfil?
+
+D. ENDING
+- Does it follow naturally from the article&#x27;s reasoning, experience, or explanation?
+- Does it complete the central thought without introducing a new unsupported argument?
+- Is it unnecessarily abrupt, repetitive, or disconnected?
+
+DECISION RULE
+Set P4 Decision to REQUIRED only if the title/subtitle, opening, and/or ending has a specific, material thesis-alignment problem that can be corrected using the existing article content, and P4 can improve it without changing the thesis or body.
+Set P4 Decision to NOT REQUIRED if these elements are already clear, accurate, coherent, and supported by the body. Do not recommend P4 merely to polish something that is already effective.
+If the problem requires new facts, research, examples, or a change to the body, do not invent them. Mark it as an unresolved issue instead of authorizing P4 to conceal the gap.
+
+PART 4: REQUIRED OUTPUT
+A. FINAL CONTROLLED EDITED ARTICLE
+Present the complete edited article, retaining its Medium-ready title, subtitle, headings, paragraph structure, and formatting. Do not insert editorial comments into the article.
+
+B. EDITING SUMMARY
+Briefly list the categories of changes made and any checklist items not implemented, with reasons.
+
+C. FIDELITY REPORT
+Report whether meaning, information, structure, format, and authorial voice were preserved. Disclose any uncertainty or unresolved conflict.
+
+D. POST-EDIT THESIS-ALIGNMENT DIAGNOSTIC
+- Central thesis and core argument.
+- Title/subtitle: Aligned / Needs Attention / Not Applicable, with reason.
+- Opening: Aligned / Needs Attention, with reason.
+- Body: Aligned / Has an Unresolved Gap, with reason.
+- Ending: Aligned / Needs Attention, with reason.
+- P4 Decision: REQUIRED / NOT REQUIRED.
+- If REQUIRED: specify the exact element(s) P4 may change and the precise diagnosed issue(s).
+- If NOT REQUIRED: state that the title/subtitle, opening, and ending should remain as they are.
+
+FINAL INSTRUCTION: Edit the original article only within P2&#x27;s authorization. Diagnose thesis alignment after editing; do not perform P4 optimization in this prompt.
+
+SOURCE MATERIAL
+EXACT ORIGINAL MEDIUM ARTICLE DRAFT:
+[PASTE THE COMPLETE ORIGINAL DRAFT HERE]
+
+APPROVED P2 EDITING CHECKLIST AND CONTENT PRESERVATION CHECKLIST:
+[PASTE THE COMPLETE APPROVED P2 OUTPUT HERE]</div>
+        <button class="btn copy-btn" onclick="copyText('p3', this)">
+          <span>Copy P3</span>
+        </button>
+      </div>
+
+      <!-- Prompt #4 -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">P4: Conditional Medium Optimization</span>
+        </div>
+        <div class="prompt-content" id="p4">PROMPT 4: MEDIUM ARTICLE — CONDITIONAL THESIS-ALIGNMENT OPTIMIZATION
+
+WHEN TO USE THIS PROMPT
+Use this prompt only when P3&#x27;s Post-Edit Thesis-Alignment Diagnostic states: P4 Decision: REQUIRED.
+If P3 states NOT REQUIRED, do not run an optimization. The P3 final article should remain unchanged.
+
+PURPOSE
+Correct only the specific title, subtitle, opening, and/or ending alignment problem identified by P3. Preserve the article&#x27;s central thesis, body, authorial intent, genre, voice, and Medium presentation. This is a targeted final refinement, not a rewrite.
+
+MANDATORY PRE-EXECUTION GATE
+First read P3&#x27;s complete diagnostic and final edited article.
+- If P3 Decision is NOT REQUIRED, return the P3 article unchanged and state that no P4 optimization is warranted.
+- If P3 Decision is REQUIRED, identify exactly which elements P3 authorized for revision: title, subtitle, opening, and/or ending.
+- Do not expand the scope beyond those elements.
+- If the diagnostic is missing, ambiguous, or unsupported by the supplied article, do not guess. State what clarification is needed and make no changes.
+
+PART 1: IDENTIFY THE ARTICLE&#x27;S THESIS
+Using only the P3 final article, identify:
+- Central thesis.
+- Core argument or intended insight.
+- What the body actually demonstrates, explains, or supports.
+- The intended reader and article purpose, if clear from the draft.
+Do not invent a stronger or different thesis. Do not use the title or opening to claim more than the body supports.
+
+PART 2: OPTIMIZE ONLY THE AUTHORIZED ELEMENTS
+
+TITLE AND SUBTITLE (only if P3 specifically authorizes them)
+- Make the title clear, accurate, specific, and faithful to the article.
+- Make the subtitle add useful context rather than merely repeat the title.
+- Avoid clickbait, exaggerated promises, generic formulations, and claims unsupported by the article.
+- Retain the author&#x27;s intended angle and voice.
+
+OPENING (only if P3 specifically authorizes it)
+- Clarify the subject and central idea early.
+- Give the intended reader a credible reason to continue, appropriate to the article&#x27;s genre.
+- Ensure the opening is fulfilled by the body.
+- Do not force a dramatic hook, personal anecdote, question, or formula if it does not suit the article.
+
+ENDING (only if P3 specifically authorizes it)
+- Bring the article&#x27;s central thought to a clear and satisfying close.
+- Reflect the argument or experience actually developed in the body.
+- Avoid a new argument, unsupported claim, repetitive recap, artificial inspiration, or unrelated CTA.
+- Preserve the author&#x27;s intended conclusion and tone.
+
+PART 3: STRICT PRESERVATION RULES
+- Change only the elements explicitly authorized by P3.
+- Keep every body paragraph, section, heading, list, quotation, example, and reference exactly as in the P3 final edited article.
+- Do not change the article&#x27;s thesis, argument, scope, genre, point of view, or authorial intent.
+- Do not add facts, research, statistics, quotations, anecdotes, examples, references, or claims.
+- Do not alter Medium formatting or restructure the body.
+- If the diagnosed issue cannot be fixed without changing the body or adding unsupported material, do not force a solution. Report the limitation.
+
+PART 4: POST-OPTIMIZATION FIDELITY CHECK
+Verify:
+1. Only the P3-authorized title, subtitle, opening, and/or ending elements were changed.
+2. Every body section and all non-authorized content remain identical to the P3 final article.
+3. The central thesis and intended meaning remain unchanged.
+4. The revised elements are fully supported by the body.
+5. No unsupported information or exaggerated promise has been introduced.
+6. The result remains appropriate for Medium and for the article&#x27;s actual genre.
+If exact identity of unchanged sections cannot be verified, disclose that limitation. Correct any unauthorized change you detect.
+
+REQUIRED OUTPUT
+A. FINAL MEDIUM ARTICLE
+Present the complete article with only the authorized elements optimized. Preserve all other P3 content and formatting.
+
+B. OPTIMIZATION SUMMARY
+State which authorized elements were changed, what issue was corrected, and why the revision is better aligned with the article.
+
+C. FIDELITY REPORT
+Report whether the body, structure, format, thesis, and authorial voice were preserved. List any unresolved limitation.
+
+FINAL INSTRUCTION: Make only the specific alignment corrections authorized by P3. Do not rewrite the article, optimize unrelated elements, or impose a generic Medium style.
+
+SOURCE MATERIAL
+P3 POST-EDIT THESIS-ALIGNMENT DIAGNOSTIC:
+[PASTE THE COMPLETE P3 DIAGNOSTIC HERE]
+
+P3 FINAL CONTROLLED EDITED MEDIUM ARTICLE:
+[PASTE THE EXACT COMPLETE P3 FINAL EDITED ARTICLE HERE]</div>
+        <button class="btn copy-btn" onclick="copyText('p4', this)">
+          <span>Copy P4 (Conditional)</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
