@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chhatro Chatri - (admin)</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.35);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .section-block {
+      margin-bottom: 45px;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 8px;
+      height: 20px;
+      background: var(--accent-primary);
+      border-radius: 4px;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .step-card:hover {
+      border-color: rgba(34, 211, 238, 0.25);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .step-label {
+      font-weight: 700;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 14px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 20px 24px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      margin-bottom: 20px;
+      line-height: 1.6;
+      word-break: break-all;
+      overflow-wrap: anywhere;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      width: 100%;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      flex: 1;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: #ffffff;
+    }
+
+    .link-btn {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--accent-success);
+      border: 1px solid var(--accent-success);
+    }
+
+    .link-btn:hover {
+      background: var(--accent-success);
+      color: #020617;
+    }
+
+    .footer {
+      margin-top: 60px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 35px;
+      width: 100%;
+      padding-bottom: 35px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2.1rem; }
+      .sub-header { font-size: 1.05rem; }
+      .step-card { padding: 20px; }
+      .prompt-content { font-size: 0.88rem; padding: 16px; }
+      .btn-group { flex-direction: column; gap: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Chhatro Chatri</h1>
+      <p class="sub-header">(admin)</p>
+    </header>
+
+    <main id="sectionsContainer">
+      <!-- Sections and prompt cards will be dynamically injected -->
+    </main>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const sectionsData = [
+      {
+        sectionTitle: "Broadcast with @everyone",
+        prompts: [
+          {
+            id: 1,
+            label: "Prompt #1",
+            text: `এই বিষয়ে কোনো জিজ্ঞাসা থাকলে নির্দ্বিধায় হোয়াটসঅ্যাপে পিং করুন: https://wa.me/919339126139\n(শুধুমাত্র টেক্সট মেসেজ, কল গ্রহণযোগ্য নয়)`,
+            url: "https://wa.me/919339126139"
+          }
+        ]
+      },
+      {
+        sectionTitle: "links for Admin",
+        prompts: [
+          {
+            id: 2,
+            label: "Prompt #2",
+            text: `https://www.facebook.com/groups/2565865380589907`,
+            url: "https://www.facebook.com/groups/2565865380589907"
+          },
+          {
+            id: 3,
+            label: "Prompt #3",
+            text: `https://www.blogger.com/blog/layout/480855730275657128`,
+            url: "https://www.blogger.com/blog/layout/480855730275657128"
+          },
+          {
+            id: 4,
+            label: "Prompt #4",
+            text: `https://www.facebook.com/profile.php?id=61596103786220`,
+            url: "https://www.facebook.com/profile.php?id=61596103786220"
+          }
+        ]
+      },
+      {
+        sectionTitle: "links for public",
+        prompts: [
+          {
+            id: 5,
+            label: "Prompt #5",
+            text: `https://www.facebook.com/groups/chhatrochatri/`,
+            url: "https://www.facebook.com/groups/chhatrochatri/"
+          },
+          {
+            id: 6,
+            label: "Prompt #6",
+            text: `https://www.facebook.com/chhatrochatri/`,
+            url: "https://www.facebook.com/chhatrochatri/"
+          },
+          {
+            id: 7,
+            label: "Prompt #7",
+            text: `https://chhatrochatri.blogspot.com/`,
+            url: "https://chhatrochatri.blogspot.com/"
+          }
+        ]
+      }
+    ];
+
+    function renderPage() {
+      const mainContainer = document.getElementById('sectionsContainer');
+      mainContainer.innerHTML = '';
+
+      sectionsData.forEach(section => {
+        const sectionEl = document.createElement('section');
+        sectionEl.className = 'section-block';
+
+        const titleEl = document.createElement('h2');
+        titleEl.className = 'section-title';
+        titleEl.textContent = section.sectionTitle;
+        sectionEl.appendChild(titleEl);
+
+        const workflowEl = document.createElement('div');
+        workflowEl.className = 'prompt-workflow';
+
+        section.prompts.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'step-card';
+          card.innerHTML = `
+            <div class="step-header">
+              <span class="step-label">${p.label}</span>
+            </div>
+            <div class="prompt-content" id="p${p.id}"></div>
+            <div class="btn-group">
+              <button class="btn copy-btn" onclick="copyText('p${p.id}', this)">
+                <span>Copy Prompt</span>
+              </button>
+              <a href="${p.url}" target="_blank" rel="noopener noreferrer" class="btn link-btn">
+                <span>Open Link</span>
+              </a>
+            </div>
+          `;
+          workflowEl.appendChild(card);
+        });
+
+        sectionEl.appendChild(workflowEl);
+        mainContainer.appendChild(sectionEl);
+      });
+
+      // Populate prompt text without any alteration
+      sectionsData.forEach(section => {
+        section.prompts.forEach(p => {
+          const element = document.getElementById(`p${p.id}`);
+          if (element) {
+            element.textContent = p.text;
+          }
+        });
+      });
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+    }
+
+    window.onload = renderPage;
+  </script>
+</body>
+</html>
