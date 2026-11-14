@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>@everyone ব্যবহারবিধি</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 1.9rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>@everyone ব্যবহারবিধি</h1>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Prompt 1 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #1</span>
+        </div>
+        <div class="prompt-content" id="p1">@everyone
+
+Any questions or need any assistance? Feel free to reach out to us at smukherjeesupport@gmail.com.</div>
+        <button class="btn copy-btn" onclick="copyText('p1', this)">
+          <span>Copy Prompt #1</span>
+        </button>
+      </div>
+
+      <!-- Prompt 2 Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Prompt #2</span>
+        </div>
+        <div class="prompt-content" id="p2">There is one important thing to understand: Facebook does not provide a separate Group Admin setting to switch ON @everyone.
+
+The availability of `@everyone` is controlled by Facebook, based on the group's membership size, your role and Facebook's usage limits.
+
+Since your group is exclusively for paid members, here is what you should check.
+
+## 1. Check your group size and admin role
+
+According to the currently documented Facebook rules:
+
+| Group membership    | Who can use @everyone          |
+| ------------------- | ------------------------------ |
+| Up to 100 members   | Admins, moderators and members |
+| 100–200,000 members | Admins and moderators only     |
+| More than 200,000   | Nobody                         |
+
+So, if you are the group admin, you should be eligible even if your group has more than 100 members, provided it has not exceeded 200,000 members.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://blog.recurpost.com\&sz=32)
+
+RecurPost Blog+1
+
+
+
+## 2. How to use @everyone
+
+You don't need to enable anything in Group Settings.
+
+1. Open your private Facebook Group.
+2. Open the post where you want to add the comment.
+3. Write a comment.
+4. Type `@everyone`.
+5. Check whether Facebook displays `@everyone` in the suggestion list.
+6. Select the suggested `@everyone` option.
+7. Complete your comment and publish it.
+
+Important: Merely typing `@everyone` as ordinary text does not activate the notification feature. You must select Facebook's suggested tag.
+
+## 3. Check Facebook's usage limits
+
+Facebook applies two restrictions:
+
+- Individual limit: Each eligible person can use @everyone once per day in a group.
+- Group limit: There is also a shared seven-day usage limit for the entire group. Facebook does not publicly specify the exact number.
+
+If the group has exhausted its weekly allowance, even admins may temporarily lose access to the feature.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://blog.recurpost.com\&sz=32)
+
+RecurPost Blog+1
+
+
+
+## 4. Can you ensure every paid member receives a notification?
+
+Unfortunately, no.
+
+Individual members can disable batch-mention notifications in their Facebook settings:
+
+Settings & privacy → Settings → Notifications → Tags → Batch mentions
+
+Facebook may also withhold notifications based on its notification system.&#x20;
+
+[image](https://www.google.com/s2/favicons?domain=https://blog.recurpost.com\&sz=32)
+
+RecurPost Blog+1
+
+
+
+## 5. My recommendation for your paid-members-only group
+
+I suggest the following:
+
+- Keep yourself as the Group Admin.
+- Use @everyone for important announcements and support-related information.
+- Avoid using it repeatedly for routine posts.
+- Keep your support email visible in the first comment.
+
+One question: How many members does your private group currently have?
+
+That will help me determine which @everyone eligibility rules apply to your group.</div>
+        <button class="btn copy-btn" onclick="copyText('p2', this)">
+          <span>Copy Prompt #2</span>
+        </button>
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
