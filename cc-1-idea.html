@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>1 CC Idea - Set Up - community content</title>
+  <link rel="icon" href="spm.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-gradient-start: #020617;
+      --bg-gradient-end: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.4);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-primary: #22d3ee;
+      --accent-hover: #67e8f9;
+      --accent-success: #10b981;
+      --accent-danger: #f43f5e;
+      --code-bg: rgba(0, 0, 0, 0.3);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: fixed linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .sub-header {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+    }
+
+    .prompt-workflow {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 35px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .step-label {
+      font-weight: 800;
+      font-size: 0.8rem;
+      background: var(--accent-primary);
+      color: #020617;
+      padding: 5px 16px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--accent-danger);
+      color: var(--accent-danger);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.2s;
+    }
+
+    .clear-btn:hover {
+      background: var(--accent-danger);
+      color: white;
+    }
+
+    label {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+      letter-spacing: 0.03em;
+    }
+
+    .dynamic-input {
+      width: 100%;
+      background: var(--code-bg);
+      border: 1px solid var(--card-border);
+      padding: 16px;
+      border-radius: 12px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      min-height: 110px;
+      transition: border-color 0.3s;
+    }
+
+    .dynamic-input:focus {
+      border-color: var(--accent-primary);
+    }
+
+    .prompt-content {
+      background: var(--code-bg);
+      padding: 25px;
+      border-radius: 12px;
+      font-family: 'Source Code Pro', monospace;
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 22px;
+      line-height: 1.6;
+      word-break: break-word;
+      max-height: 520px;
+      overflow-y: auto;
+    }
+
+    .prompt-content::-webkit-scrollbar { width: 8px; }
+    .prompt-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .prompt-content::-webkit-scrollbar-thumb { background: var(--card-border); border-radius: 4px; }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s;
+      width: 100%;
+      text-decoration: none;
+      border: none;
+    }
+
+    .copy-btn {
+      background: rgba(34, 211, 238, 0.1);
+      color: var(--accent-primary);
+      border: 1px solid var(--accent-primary);
+    }
+
+    .copy-btn:hover {
+      background: var(--accent-primary);
+      color: #020617;
+    }
+
+    .copy-btn.copied {
+      background: var(--accent-success);
+      border-color: var(--accent-success);
+      color: white;
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--card-border);
+      padding-top: 40px;
+      width: 100%;
+      padding-bottom: 40px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .sub-header { font-size: 1rem; }
+      .step-card { padding: 22px; }
+      .prompt-content { font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>1 CC Idea - Set Up</h1>
+      <p class="sub-header">(community content)</p>
+    </header>
+
+    <div class="prompt-workflow">
+      
+      <!-- Multiline Input Card -->
+      <div class="step-card">
+        <div class="step-header">
+          <span class="step-label">Input Data</span>
+          <button class="clear-btn" onclick="resetInput('inputKeyword')">Reset</button>
+        </div>
+        <label for="inputKeyword">[keyword]</label>
+        <textarea id="inputKeyword" class="dynamic-input" placeholder="Type or paste the keyword here..." oninput="updatePrompts()"></textarea>
+      </div>
+
+      <!-- Prompt Result Cards -->
+      <div id="promptsContainer" class="prompt-workflow">
+        <!-- Prompts injected by JavaScript -->
+      </div>
+
+    </div>
+
+    <footer class="footer">
+      <p>Copyright &copy; <script>document.write(new Date().getFullYear())</script> Siva Prasad Mukherjee. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const templates = [
+      {
+        id: 1,
+        name: "Relevant",
+        text: `Act as a world-class authority-content strategist, instructional designer, positioning thinker, behavioral marketer, and expert content creator. Your job is to create exactly 1 Compulsive Content Idea for the source below. This is not a generic brainstorm, ordinary content calendar, broad topic suggestion, or surface-level post idea. This is one strong teaching idea that can later become substantial authority content for social posts, newsletters, articles, membership content, trainings, workshops, PDFs, or other formats.
+
+SOURCE TYPE: KEYWORD, NICHE, OR TOPIC  
+SOURCE: [keyword]  
+NUMBER OF CONTENT IDEAS: 1
+
+Use the supplied keyword, niche, or topic as the primary and central source of the content idea. The generated Content Idea and its description must maintain a clear, direct, and meaningful connection with the exact keyword supplied. Do not replace the supplied keyword with a broader subject, shift to an adjacent topic, or generate an idea merely inspired by the keyword. Infer the clearest intended audience from the keyword and make the entire content idea unmistakably relevant to it.
+
+CORE GOAL: Give me exactly 1 genuinely interesting thing worth teaching. The content idea should make the intended audience think, learn, notice something they missed, understand a mechanism better, or gain a useful way to act. The idea should make the person teaching it look useful, clear-thinking, and worth paying attention to without relying on empty thought-leadership language.
+
+AUTHORITY CONTENT DNA: The content idea must contain a real discovery, mechanism, useful distinction, shortcut, diagnostic, decision rule, overlooked mistake, advantage, behavioral reality, reframe, practical method, hidden opportunity, new capability, or other teachable idea with enough substance to stand alone.
+
+HOOK-DRIVEN TITLE STANDARD: The title itself should contain an idea, tension, claim, rule, or intriguing premise before the content is even explained. Think in the spirit of titles like “Never Make Them Finish Your Sentence,” “The Screenshot Test,” or “The Curiosity Gap Has To Pay Rent.” Don't copy those examples unless the source genuinely calls for them. Create an original title that fits this exact keyword, market, and intended audience.
+
+NON-NEGOTIABLE QUALITY RULES:
+- Create exactly 1 content idea, not multiple alternatives or variations.
+- The content idea must be directly and unmistakably relevant to the supplied keyword.
+- The keyword must determine the central subject and teaching direction of the idea.
+- Don't drift into broader, adjacent, or unrelated topics.
+- Don't pad the idea with secondary topics or unrelated teaching points.
+- Don't create ordinary headings such as “Understanding X,” “Introduction To X,” “Benefits Of X,” or “Tips For X.”
+- Don't simply restate the keyword as a title without introducing a meaningful teaching angle.
+- The idea must support a substantial 1,000+ word authority content piece.
+- The idea should naturally support at least one concrete, realistic example specific to the keyword, niche, or intended audience.
+- Favor useful conclusions, overlooked mechanisms, practical reasoning, memorable rules, and ideas people could repeat or teach.
+- The idea should deliver a distinct and meaningful payoff to the intended audience.
+- Use plain, readable language and contractions naturally.
+- Never use em dashes.
+- Don't invent studies, statistics, proof, credentials, testimonials, laws, guarantees, results, or unsupported facts.
+
+OUTPUT FORMAT: Return exactly 1 numbered item and nothing else. Use this exact structure:
+
+Content Idea 1. [Hook-driven title]
+[Write one compact 2 to 4 sentence description explaining exactly what this content teaches, why it matters, and the distinct mechanism, distinction, mistake, rule, opportunity, or payoff. Give enough direction for a later content-writing prompt without pre-writing the finished content. Ensure the description stays directly aligned with the supplied keyword.]
+
+Before responding, silently test the idea. Would the title make the intended audience curious? Does the description contain one real and substantial teaching idea? Is the idea directly aligned with the supplied keyword? Does it avoid drifting into unrelated or merely adjacent topics? Can it support a strong 1,000+ word authority content piece with a concrete example? Would teaching it make the creator look useful and authoritative? If any answer is no, replace the idea before responding.`
+      },
+      {
+        id: 2,
+        name: "Exact",
+        text: `Act as a world-class authority-content strategist, instructional designer, positioning thinker, behavioral marketer, and expert content creator. Your job is to create exactly 1 Compulsive Content Idea for the source below.
+
+This is not a generic brainstorm, ordinary content calendar, broad topic suggestion, or surface-level post idea. This is one strong teaching idea built around the exact keyword supplied as the source. It should later become substantial authority content for social posts, newsletters, articles, membership content, trainings, workshops, PDFs, or other formats.
+
+SOURCE TYPE: KEYWORD, NICHE, OR TOPIC  
+SOURCE: [keyword]  
+NUMBER OF CONTENT IDEAS: 1
+
+EXACT KEYWORD TITLE REQUIREMENT:
+
+The exact keyword supplied in the SOURCE field must be used as the Content Title.
+
+- Use the supplied keyword exactly as provided.
+- Do not rewrite, rephrase, shorten, expand, improve, or replace the keyword.
+- Do not add a hook, subtitle, prefix, or suffix to the title.
+- Do not create an alternative title.
+- Preserve the original wording and word order of the supplied keyword.
+- The Content Idea must be developed specifically around the subject, meaning, and intended scope of this exact keyword.
+
+CORE GOAL: Create exactly 1 genuinely interesting and substantial teaching idea based on the exact keyword. The content should make the intended audience think, learn, notice something they missed, understand a mechanism better, or gain a useful way to act. The idea should make the person teaching it look useful, clear-thinking, and worth paying attention to without relying on empty thought-leadership language.
+
+KEYWORD-ALIGNED CONTENT DEVELOPMENT:
+
+Treat the supplied keyword as the central subject, not merely as a reference or inspiration.
+
+Interpret what the keyword actually represents, infer the clearest intended audience, and identify the most valuable teaching angle within its scope.
+
+Develop one compelling content idea that explores a meaningful discovery, mechanism, distinction, problem, mistake, opportunity, practical method, or useful insight directly related to the keyword.
+
+Do not drift into a broader subject, an adjacent topic, or an unrelated teaching direction simply because it offers an easier or more interesting content angle.
+
+The content idea and its description must make it clear why the exact keyword is worth exploring and what the audience will learn from it.
+
+AUTHORITY CONTENT DNA: The content idea must contain a real discovery, mechanism, useful distinction, shortcut, diagnostic, decision rule, overlooked mistake, advantage, behavioral reality, reframe, practical method, hidden opportunity, new capability, or other teachable idea with enough substance to stand alone.
+
+CONTENT VALUE STANDARD: Although the exact keyword must remain the title, the content developed under it must not be generic or superficial. Find a meaningful and interesting teaching angle that gives the keyword depth, practical relevance, and educational value.
+
+NON-NEGOTIABLE QUALITY RULES:
+- Create exactly 1 content idea, not multiple alternatives or variations.
+- Use the exact supplied keyword as the Content Idea title.
+- Never modify or embellish the supplied keyword in the title.
+- Keep the entire content idea directly and unmistakably anchored to the exact keyword.
+- Don't generate a generic explanation of the keyword merely to fill the description.
+- Don't create ordinary teaching content that offers only definitions, introductions, or generic benefits.
+- Don't pad the idea with unrelated secondary topics.
+- The idea must support a substantial 1,000+ word authority content piece.
+- The idea should naturally support at least one concrete, realistic example specific to the keyword, niche, or intended audience.
+- Favor useful conclusions, overlooked mechanisms, practical reasoning, memorable rules, and ideas people could repeat or teach.
+- The content should deliver a distinct and meaningful payoff to the intended audience.
+- Use plain, readable language and contractions naturally.
+- Never use em dashes.
+- Don't invent studies, statistics, proof, credentials, testimonials, laws, guarantees, results, or unsupported facts.
+
+OUTPUT FORMAT: Return exactly 1 numbered item and nothing else. Use this exact structure:
+
+Content Idea 1. [Insert the exact supplied keyword here without any modification]
+[Write one compact 2 to 4 sentence description explaining exactly what this content teaches, why it matters, and the distinct mechanism, distinction, mistake, rule, opportunity, or payoff. Give enough direction for a later content-writing prompt without pre-writing the finished content. Ensure the description stays directly aligned with the exact supplied keyword.]
+
+Before responding, silently test the idea:
+- Is the title exactly identical to the supplied keyword?
+- Does the description explore the actual subject represented by the keyword?
+- Does it contain one real and substantial teaching idea?
+- Does it avoid drifting into unrelated or merely adjacent topics?
+- Can it support a strong 1,000+ word authority content piece with a concrete example?
+- Would teaching it make the creator look useful and authoritative?
+
+If any answer is no, revise the idea before responding. Never change the exact keyword title to solve a content-development problem.`
+      }
+    ];
+
+    function createCards() {
+      const container = document.getElementById('promptsContainer');
+      container.innerHTML = '';
+      templates.forEach(t => {
+        const card = document.createElement('div');
+        card.className = 'step-card';
+        card.innerHTML = `
+          <div class="step-header">
+            <span class="step-label">${t.name}</span>
+          </div>
+          <div class="prompt-content" id="p${t.id}"></div>
+          <button class="btn copy-btn" onclick="copyText('p${t.id}', this)">
+            <span>Copy ${t.name}</span>
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updatePrompts() {
+      const keywordVal = document.getElementById('inputKeyword').value.trim() || "[keyword]";
+
+      templates.forEach(t => {
+        const updatedText = t.text.split('[keyword]').join(keywordVal);
+        document.getElementById(`p${t.id}`).innerText = updatedText;
+      });
+    }
+
+    function resetInput(fieldId) {
+      document.getElementById(fieldId).value = "";
+      updatePrompts();
+    }
+
+    function copyText(id, btn) {
+      const text = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<span>Copied to Clipboard!</span>`;
+        btn.classList.add('copied');
+        
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    // Initialize on page load
+    window.onload = () => {
+      createCards();
+      updatePrompts();
+    };
+  </script>
+</body>
+</html>
